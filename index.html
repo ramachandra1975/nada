@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nada Chikitsa — The Healing Science of Sound | Aesthetics of Society</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:    #c5a059;
+  --gold-lt: #e2c98a;
+  --gold-dk: #9a7a38;
+  --ink-d1:  #160e02;
+  --ink-d2:  #1a0e04;
+  --ink-d3:  #2c1a08;
+  --ink-l1:  #f8f0de;
+  --ink-l2:  #e8d8b8;
+  --ink-l3:  rgba(240,224,196,.85);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:17px}
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:linear-gradient(135deg,#1a0e04 0%,#0c1428 40%,#1a0a0a 100%);
+  color:var(--ink-d2);overflow-x:hidden;line-height:1.8;
+}
+
+/* ─── LAYER STACK ─── */
+#bg-engine{
+  position:fixed;inset:0;z-index:-3;pointer-events:none;
+  background:linear-gradient(160deg,#1a0e04,#0c1428,#1a0a0a);
+}
+.bg-layer{
+  position:absolute;inset:0;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  opacity:0;transition:opacity 1.8s ease-in-out;will-change:opacity;
+}
+.bg-layer.active{opacity:1}
+#bg-veil{position:fixed;inset:0;z-index:-2;pointer-events:none;background:rgba(120,70,10,0.08);}
+
+/* ─── WATERMARK ─── */
+#wm-logo{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  z-index:0;pointer-events:none;
+  width:420px;height:420px;
+  opacity:0.25;
+  filter:drop-shadow(0 0 26px rgba(197,160,89,.50));
+  mix-blend-mode:luminosity;
+}
+#wm-logo img{width:100%;height:100%;object-fit:contain;display:block}
+#wm-om{
+  position:fixed;top:50%;left:50%;transform:translate(-50%,-52%);
+  z-index:0;pointer-events:none;
+  font-family:'Playfair Display',serif;font-size:16rem;font-weight:700;
+  color:var(--gold);opacity:0.20;
+  white-space:nowrap;user-select:none;display:none;
+}
+
+/* ─── TYPOGRAPHY ─── */
+.lbl{display:block;font-family:'Montserrat',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:3.8px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.ttl{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3vw,2.9rem);font-weight:700;line-height:1.1;margin-bottom:26px;color:var(--ink-d1);}
+.ttl em{color:var(--gold-dk);font-style:italic}
+/* Body copy — BRIGHT sections (sec-lt, sec-cr) */
+.cp{font-size:1.18rem;line-height:1.92;color:#1a0a02;margin-bottom:22px;text-align:justify;font-weight:400;}
+
+/* ─── NAV ─── */
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:9000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 4%;height:64px;
+  background:rgba(200,155,70,0.22);
+  border-bottom:1px solid rgba(197,160,89,.35);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  transition:background .3s,box-shadow .3s;
+}
+#nav.sc{background:rgba(200,155,70,0.40);box-shadow:0 4px 24px rgba(0,0,0,.18);}
+.nb{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+.nb-img{width:44px;height:44px;object-fit:contain;border-radius:3px;flex-shrink:0}
+.nb-fb{width:44px;height:44px;background:rgba(6,14,40,.75);border-radius:3px;display:none;align-items:center;justify-content:center;flex-shrink:0}
+.nb-fb span{font-family:'Playfair Display',serif;color:var(--gold);font-size:1rem;font-weight:700}
+.nb-txt .n1{display:block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.68rem;letter-spacing:2px;color:var(--ink-d1);text-transform:uppercase}
+.nb-txt .n2{display:block;font-family:'Montserrat',sans-serif;font-size:0.60rem;color:var(--gold-dk);letter-spacing:1px}
+.nl{display:flex;align-items:center;list-style:none;height:64px}
+.nl>li{height:100%;display:flex;align-items:center;position:relative}
+.nl>li>a{display:flex;align-items:center;height:100%;padding:0 12px;font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-d1);text-decoration:none;border-bottom:2px solid transparent;transition:color .2s;white-space:nowrap;}
+.nl>li>a:hover,.nl>li>a.act{color:var(--gold)}
+.nl>li>a.act{border-bottom-color:var(--gold)}
+.hd>a::after{content:' ▾';font-size:.52rem;opacity:.7}
+.dm{position:absolute;top:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:rgba(230,200,140,0.94);backdrop-filter:blur(24px);min-width:270px;border:1px solid rgba(197,160,89,.40);border-top:2px solid var(--gold);padding:5px 0;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 18px 50px rgba(0,0,0,.20);z-index:200;}
+.hd:hover .dm{opacity:1;pointer-events:all;transform:translateX(-50%) translateY(0)}
+.dm a{display:flex;align-items:center;gap:10px;padding:10px 20px;font-family:'Montserrat',sans-serif;font-size:0.60rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ink-d1);text-decoration:none;border-left:2px solid transparent;transition:background .15s,color .15s;}
+.dm a:hover{background:rgba(197,160,89,.16);color:var(--gold-dk);border-left-color:var(--gold)}
+.dm a .di{font-size:11px;opacity:.6;flex-shrink:0}
+.dmdiv{height:1px;background:rgba(197,160,89,.24);margin:3px 0}
+.ncta{border:1px solid var(--gold)!important;padding:7px 16px!important;height:auto!important;color:var(--gold-dk)!important;margin-left:8px;transition:all .22s!important;}
+.ncta:hover{background:var(--gold)!important;color:#fff!important}
+@media(max-width:860px){.nl{display:none}}
+
+/* ─── HERO ─── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 40px 80px;position:relative;}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(8,14,30,.52),rgba(10,20,42,.44),rgba(6,12,26,.54));}
+.hic{position:relative;z-index:2;max-width:920px;margin:0 auto}
+.hrul{width:44px;height:2px;background:var(--gold);margin:0 auto 22px;animation:fu .6s ease both}
+.htag{font-family:'Montserrat',sans-serif;font-size:0.66rem;font-weight:700;letter-spacing:4.5px;color:var(--gold-lt);text-transform:uppercase;margin-bottom:20px;animation:fu .7s .05s ease both;}
+#hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,5rem);color:#fff;font-weight:700;line-height:1.05;margin-bottom:22px;animation:fu .8s .10s ease both;}
+#hero h1 em{color:var(--gold-lt);font-style:italic}
+.hsub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.12rem,2vw,1.42rem);color:rgba(255,244,215,.82);max-width:780px;line-height:1.82;margin:0 auto 32px;animation:fu .9s .15s ease both;}
+.hpills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:28px;animation:fu 1s .22s ease both;}
+.hp{font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;padding:8px 18px;border:1px solid rgba(197,160,89,.48);color:var(--gold-lt);text-decoration:none;background:rgba(0,0,0,.18);backdrop-filter:blur(6px);transition:all .25s;}
+.hp:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── SECTION GLASS ─── */
+.sec{padding:88px 0;position:relative;z-index:1}
+
+/* BRIGHT GOLDEN sections — dark text on gold/amber glass */
+.sec-lt{
+  background:rgba(220,175,100,0.28);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid rgba(197,160,89,.32);
+  border-bottom:1px solid rgba(197,160,89,.18);
+}
+.sec-lt .cp{color:#160a00;font-size:1.18rem;}
+.sec-lt .ttl{color:#160a00;}
+.sec-lt .ttl em{color:#7a5c18;}
+.sec-lt .lbl{color:#7a5c18;}
+.sec-lt .pq{background:rgba(197,160,89,.18);border-left-color:#9a7a38;}
+.sec-lt .pq p{color:#1a0800;font-size:1.16rem;}
+.sec-lt .rt{color:#1a0800;}
+.sec-lt .rd{color:#2c1808;}
+.sec-lt .ri{background:rgba(195,155,80,.18);border-color:rgba(197,160,89,.30);}
+.sec-lt .ri:hover{border-color:var(--gold-dk);}
+
+/* AMBER sections — same warm treatment */
+.sec-cr{
+  background:rgba(210,168,90,0.26);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-top:1px solid rgba(197,160,89,.28);
+  border-bottom:1px solid rgba(197,160,89,.14);
+}
+.sec-cr .cp{color:#160a00;font-size:1.18rem;}
+.sec-cr .ttl{color:#160a00;}
+.sec-cr .ttl em{color:#7a5c18;}
+.sec-cr .lbl{color:#7a5c18;}
+.sec-cr .pq{background:rgba(197,160,89,.18);border-left-color:#9a7a38;}
+.sec-cr .pq p{color:#1a0800;font-size:1.16rem;}
+.sec-cr .rt{color:#1a0800;}
+.sec-cr .rd{color:#2c1808;}
+.sec-cr .ri{background:rgba(195,155,80,.18);border-color:rgba(197,160,89,.30);}
+.sec-cr .ri:hover{border-color:var(--gold-dk);}
+
+/* DARK sections — always deep navy + bright cream text */
+.sec-dk{
+  background:rgba(4,10,28,0.72)!important;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-top:1px solid rgba(197,160,89,.22);
+  border-bottom:1px solid rgba(197,160,89,.12);
+}
+.sec-dk .lbl{color:var(--gold-lt);}
+.sec-dk .ttl{color:#f4e8cc;}
+.sec-dk .ttl em{color:var(--gold-lt);}
+.sec-dk .cp{color:#e8d8b4;font-size:1.18rem;}
+.sec-dk .pq{background:rgba(197,160,89,.10);border-left:3px solid var(--gold);}
+.sec-dk .pq p{color:#f0e0bc;font-size:1.16rem;}
+.sec-dk .rt{color:#f0e4c4;}
+.sec-dk .rd{color:rgba(240,220,170,.80);}
+.sec-dk .ri{background:rgba(255,255,255,.06);border-color:rgba(197,160,89,.22);}
+.sec-dk .ri:hover{border-color:var(--gold);background:rgba(255,255,255,.10);}
+
+/* ─── STRIPS ─── */
+.strip{padding:40px 52px;position:relative;z-index:1;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:2px solid rgba(197,160,89,.30);border-bottom:1px solid rgba(197,160,89,.14);}
+.strip .si{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.strip .sm{font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:5px;}
+.strip .st{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,2vw,2rem);color:#fff;font-weight:700;text-shadow:0 2px 12px rgba(0,0,0,.5);}
+.strip .pg{font-family:'Playfair Display',serif;font-size:3.4rem;color:rgba(255,255,255,.16);font-weight:700;line-height:1;}
+
+/* ─── ORNAMENT ─── */
+.orn{text-align:center;padding:22px 0;position:relative;z-index:1;background:rgba(140,95,20,.08);backdrop-filter:blur(10px);}
+.orn span{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.2rem;letter-spacing:20px;opacity:.82;}
+
+/* ─── LAYOUT ─── */
+.w{max-width:1240px;margin:0 auto;padding:0 48px}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.tg.rv{direction:rtl}.tg.rv>*{direction:ltr}
+
+/* Pull quote */
+.pq{border-left:3px solid var(--gold);padding:20px 28px;margin:26px 0;backdrop-filter:blur(8px);}
+.pq p{font-family:'Playfair Display',serif;font-style:italic;font-size:1.20rem;line-height:1.60;margin:0;text-align:left;}
+
+/* Research link cards */
+.rl{margin-top:24px;display:flex;flex-direction:column;gap:9px}
+.ri{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid rgba(197,160,89,.28);backdrop-filter:blur(10px);transition:all .25s;}
+.ri:hover{transform:translateX(4px);}
+.ric{font-size:1.1rem;flex-shrink:0}
+.rt{font-family:'Montserrat',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:.9px;text-transform:uppercase;}
+.rd{font-family:'Cormorant Garamond',serif;font-size:1.02rem;line-height:1.46;}
+
+/* Shloka cards — ALWAYS dark background, bright text */
+.scc{display:flex;flex-direction:column;gap:18px}
+.sc{
+  background:rgba(4,10,32,0.82);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  padding:28px 32px;position:relative;overflow:hidden;
+  border:1px solid rgba(197,160,89,.24);
+  border-left:3px solid var(--gold);
+  box-shadow:0 4px 24px rgba(0,0,0,.28);
+}
+.sc::before{content:'"';position:absolute;top:0;right:12px;font-size:5.5rem;color:rgba(197,160,89,.07);font-family:'Playfair Display',serif;line-height:1;pointer-events:none;}
+.sn{display:block;font-family:'Montserrat',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt);margin-bottom:10px;}
+/* Sanskrit / Telugu verse text — always bright */
+.ss{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.16rem;color:#f0e4c8;line-height:1.80;margin-bottom:12px;}
+/* Translation text — always clearly readable */
+.str{font-family:'Cormorant Garamond',serif;font-size:1.04rem;color:rgba(240,220,170,.88);line-height:1.66;font-style:italic;}
+.src{display:block;font-family:'Montserrat',sans-serif;font-size:0.62rem;color:var(--gold);letter-spacing:1.3px;text-transform:uppercase;margin-top:12px;padding-top:10px;border-top:1px solid rgba(197,160,89,.20);}
+
+/* Swara badge row */
+.swara-row{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 28px;}
+.sw{font-family:'Playfair Display',serif;font-size:0.94rem;font-weight:700;padding:7px 14px;border:1px solid rgba(197,160,89,.40);color:var(--gold-lt);background:rgba(4,10,32,.55);backdrop-filter:blur(8px);letter-spacing:1px;}
+/* Swara badges in bright sections */
+.sec-lt .sw, .sec-cr .sw{color:#5a3c0a;background:rgba(197,160,89,.22);border-color:rgba(150,100,20,.40);}
+
+/* ─── AUTHOR ─── */
+#author{
+  background:rgba(210,168,90,0.22)!important;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  padding:96px 0;position:relative;z-index:1;
+  border-top:2px solid rgba(197,160,89,.28);
+  border-bottom:1px solid rgba(197,160,89,.14);
+}
+.ag{display:grid;grid-template-columns:355px 1fr;gap:64px;align-items:start}
+.ap{background:rgba(4,12,40,.55);backdrop-filter:blur(16px);border:1px solid rgba(197,160,89,.24);border-top:3px solid var(--gold);position:relative;overflow:hidden;}
+.aph{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top center;display:block}
+.apf{display:none;padding:44px 32px;text-align:center}
+.api{width:84px;height:84px;background:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.api span{font-family:'Playfair Display',serif;font-size:1.8rem;color:#fff;font-weight:700}
+.apc{padding:20px 26px 26px;position:relative;z-index:1}
+.apn{font-family:'Playfair Display',serif;font-size:1.18rem;color:var(--ink-l1);margin-bottom:4px}
+.apr{font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:12px}
+.apb{font-size:0.96rem;color:var(--ink-l3);line-height:1.68;font-family:'Cormorant Garamond',serif;font-style:italic}
+.apt{display:flex;flex-direction:column;gap:6px;margin-top:14px}
+.at{font-family:'Montserrat',sans-serif;font-size:0.62rem;letter-spacing:1.4px;text-transform:uppercase;color:rgba(220,200,158,.55);padding:5px 0;border-bottom:1px solid rgba(197,160,89,.14)}
+.ac p{font-size:1.16rem;line-height:1.92;color:#1a0a02;margin-bottom:18px;text-align:justify;}
+.af{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.afi{padding:15px;border:1px solid rgba(197,160,89,.28);background:rgba(195,155,80,.16);backdrop-filter:blur(10px);transition:border-color .25s,background .25s;}
+.afi:hover{border-color:var(--gold-dk);}
+.afi .ico{font-size:1rem;margin-bottom:6px;display:block}
+.afi h4{font-family:'Montserrat',sans-serif;font-size:0.63rem;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:#160a00;margin-bottom:3px;}
+.afi p{font-size:0.96rem;color:#2c1808;margin:0;line-height:1.50}
+
+/* ─── INQUIRY ─── */
+#inquiry{
+  background:rgba(4,10,28,0.68)!important;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding:96px 0;position:relative;z-index:1;
+  border-top:2px solid rgba(197,160,89,.24);
+}
+.iqi{max-width:800px;margin:0 auto;padding:0 36px}
+.iqh{text-align:center;margin-bottom:52px}
+.iqh .lbl{color:var(--gold-lt)}
+.iqh h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.7rem);color:#f0e4cc;font-style:italic;margin-top:10px;}
+.iqh p{font-size:1.08rem;color:rgba(240,220,170,.80);line-height:1.74;margin-top:14px}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fg1{display:flex;flex-direction:column;gap:6px}
+.fg1.fu{grid-column:1/-1}
+.fg1 label{font-family:'Montserrat',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);}
+.fg1 input,.fg1 select,.fg1 textarea{background:rgba(255,255,255,.08);border:1px solid rgba(197,160,89,.28);color:var(--ink-l1);padding:11px 16px;font-family:'Cormorant Garamond',serif;font-size:1.06rem;transition:border-color .25s,background .25s;outline:none;width:100%;-webkit-appearance:none;}
+.fg1 input::placeholder,.fg1 textarea::placeholder{color:rgba(210,185,140,.32)}
+.fg1 input:focus,.fg1 select:focus,.fg1 textarea:focus{border-color:var(--gold);background:rgba(255,255,255,.12)}
+.fg1 select{color:rgba(220,196,150,.80)}
+.fg1 select option{background:#0c1832;color:var(--ink-l1)}
+.fg1 textarea{min-height:120px;resize:vertical}
+.fsb{text-align:center;margin-top:26px}
+.bts{display:inline-block;padding:14px 52px;font-family:'Montserrat',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;background:var(--gold);color:#fff;border:none;cursor:pointer;transition:all .25s;}
+.bts:hover{background:var(--gold-lt);color:var(--ink-d1);transform:translateY(-2px)}
+.fn-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.96rem;color:rgba(195,162,108,.44);margin-top:12px;}
+
+/* ─── FOOTER ─── */
+#foot{
+  background:rgba(4,8,22,0.72);
+  backdrop-filter:blur(18px);border-top:1px solid rgba(197,160,89,.18);
+  padding:38px 5%;display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:16px;position:relative;z-index:1;
+}
+.fb .fn1{display:block;font-family:'Montserrat',sans-serif;font-weight:700;letter-spacing:1.8px;font-size:0.76rem;color:var(--ink-l1)}
+.fb .fu{color:var(--gold);font-size:0.66rem;font-family:'Montserrat',sans-serif}
+.fnv a{font-family:'Montserrat',sans-serif;font-size:0.64rem;letter-spacing:.8px;color:rgba(215,188,140,.44);text-decoration:none;margin-right:14px;transition:color .18s}
+.fnv a:hover{color:var(--gold)}
+.fc{font-family:'Montserrat',sans-serif;font-size:0.63rem;color:rgba(195,168,120,.34)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:960px){
+  .tg,.tg.rv{grid-template-columns:1fr;gap:36px;direction:ltr}
+  .ag{grid-template-columns:1fr;gap:36px}
+  .af,.fg{grid-template-columns:1fr}
+  .w{padding:0 20px}
+  .sec{padding:60px 0}
+  .strip{padding:30px 20px}
+  #wm-logo{width:240px;height:240px;opacity:0.18}
+}
+</style>
+</head>
+<body>
+
+<div id="bg-engine">
+  <div class="bg-layer active" id="L0"></div>
+  <div class="bg-layer" id="L1"></div>
+  <div class="bg-layer" id="L2"></div>
+  <div class="bg-layer" id="L3"></div>
+  <div class="bg-layer" id="L4"></div>
+  <div class="bg-layer" id="L5"></div>
+  <div class="bg-layer" id="L6"></div>
+  <div class="bg-layer" id="L7"></div>
+</div>
+<div id="bg-veil"></div>
+
+<div id="wm-logo">
+  <img src="https://raw.githubusercontent.com/ramachandra1975/natyashastra-/main/logo.png" alt=""
+       onerror="this.parentElement.style.display='none';document.getElementById('wm-om').style.display='block'"/>
+</div>
+<div id="wm-om">नाद</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nb">
+    <img src="https://raw.githubusercontent.com/ramachandra1975/natyashastra-/main/logo.png"
+         class="nb-img" alt="Aesthetics of Society"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+    <div class="nb-fb"><span>AoS</span></div>
+    <div class="nb-txt">
+      <span class="n1">Aesthetics of Society</span>
+      <span class="n2">Nada Chikitsa</span>
+    </div>
+  </a>
+  <ul class="nl">
+    <li><a href="#author">About</a></li>
+    <li class="hd">
+      <a href="#s1" class="act">Dikshitar</a>
+      <div class="dm">
+        <a href="#s1"><span class="di">🔺</span>Dikshitar &amp; Srividya — I</a>
+        <a href="#d2"><span class="di">🎵</span>Saptaswara Krithis — II</a>
+        <a href="#d3"><span class="di">📐</span>Melakartha 72 Ragas — III</a>
+        <a href="#d4"><span class="di">🌟</span>Raga-Devata &amp; Mudra — IV</a>
+      </div>
+    </li>
+    <li class="hd">
+      <a href="#s2">Syama Shastry</a>
+      <div class="dm">
+        <a href="#s2"><span class="di">🌬️</span>Swarajatis &amp; Yoga — I</a>
+        <a href="#ss1"><span class="di">🧘</span>Three Swarajatis Deep — II</a>
+        <a href="#ss2"><span class="di">🕉️</span>Kamakshi &amp; Mantra — III</a>
+        <a href="#ss3"><span class="di">〰️</span>Gamaka Science — IV</a>
+        <a href="#ss4"><span class="di">💠</span>Komal &amp; Consciousness — V</a>
+      </div>
+    </li>
+    <li class="hd">
+      <a href="#s3">Sangita Ratnakara</a>
+      <div class="dm">
+        <a href="#s3"><span class="di">🌸</span>Seven Swaras &amp; Wholeness</a>
+      </div>
+    </li>
+    <li class="hd">
+      <a href="#t1">Trinity &amp; Advaita</a>
+      <div class="dm">
+        <a href="#t1"><span class="di">🪔</span>Thyagaraja — I</a>
+        <a href="#t2"><span class="di">🌊</span>Thyagaraja — II</a>
+        <div class="dmdiv"></div>
+        <a href="#a1"><span class="di">🌺</span>Annamacharya — I</a>
+        <a href="#a2"><span class="di">🙏</span>Annamacharya — II</a>
+      </div>
+    </li>
+    <li class="hd">
+      <a href="#th1">Therapeutic</a>
+      <div class="dm">
+        <a href="#th1"><span class="di">🧠</span>Neurological — I</a>
+        <a href="#th2"><span class="di">⚕️</span>Medical — II</a>
+        <a href="#th3"><span class="di">💠</span>Psychological — III</a>
+      </div>
+    </li>
+    <li><a href="#inquiry" class="ncta">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-overlay"></div>
+  <div class="hic">
+    <div class="hrul"></div>
+    <div class="htag">Sapta Swaras · Srividya · Trinity Saints · Nada Yoga · Healing Science</div>
+    <h1><em>Nada Chikitsa</em><br/>The Healing Science of Sound</h1>
+    <p class="hsub">An interdisciplinary exploration of how the seven Saptaswaras — Sa, Re, Ga, Ma, Pa, Da, Ni — encode the complete science of human consciousness, spiritual liberation, and physical healing, as revealed through the Srividya tradition, the Trinity of Carnatic music, and the frontiers of modern therapeutic science.</p>
+    <div class="hpills">
+      <a class="hp" href="#s1">Dikshitar &amp; Srividya</a>
+      <a class="hp" href="#ss1">Syama Shastry</a>
+      <a class="hp" href="#t1">Thyagaraja</a>
+      <a class="hp" href="#a1">Annamacharya</a>
+      <a class="hp" href="#th1">Therapeutic Science</a>
+      <a class="hp" href="#author">About the Author</a>
+    </div>
+  </div>
+</section>
+
+<!-- AUTHOR -->
+<section id="author">
+  <div class="w">
+    <div class="ag">
+      <div class="ap">
+        <img src="https://raw.githubusercontent.com/ramachandra1975/natyashastra-/main/author.jpg"
+             class="aph" alt="Naredla Rama Chandra"
+             onerror="this.style.display='none';document.getElementById('apf').style.display='block'"/>
+        <div class="apf" id="apf"><div class="api"><span>NRC</span></div></div>
+        <div class="apc">
+          <p class="apn">Naredla Rama Chandra</p>
+          <span class="apr">Researcher · Author · Cultural Theorist</span>
+          <p class="apb">Decoding the ancient sonic sciences for the modern world — from Srividya to synaptic medicine.</p>
+          <div class="apt">
+            <span class="at">Nada Chikitsa &amp; Swara Science</span>
+            <span class="at">Srividya &amp; Tantric Musicology</span>
+            <span class="at">Carnatic Trinity — Philosophical Exegesis</span>
+            <span class="at">Sangita Ratnakara Research</span>
+            <span class="at">Music-Based Neuro-Medicine</span>
+            <span class="at">Yoga, Nada &amp; Consciousness Studies</span>
+          </div>
+        </div>
+      </div>
+      <div class="ac">
+        <span class="lbl" style="color:#7a5c18">Author Introduction</span>
+        <h2 class="ttl" style="color:#160a00">The Living Science of <em style="color:#7a5c18">Nada Chikitsa</em></h2>
+        <p>Naredla Rama Chandra's research into Nada Chikitsa — the ancient Indian science of sound-based healing — represents a two-decade enquiry into one of the most sophisticated systems of human wellbeing ever formulated. Beginning with the Sangita Ratnakara of Sarngadeva and moving through the great composers of the Carnatic tradition, this work traces a single golden thread: that the seven Saptaswaras are not merely musical intervals but complete biological, psychological, and spiritual instruments.</p>
+        <p>The research focuses particularly on the convergence between the Srividya tradition — as encoded by Muthuswami Dikshitar and Syama Shastry in their compositions — and modern neuroscience's understanding of how specific acoustic frequencies modulate the autonomic nervous system, the endocrine cascade, and the neural architecture of consciousness. The Advaita philosophy embedded in the krithis of Thyagaraja and the Sankeerthanas of Annamacharya provides the philosophical framework within which all therapeutic applications must ultimately be understood.</p>
+        <p>This work is presented as both a scholarly contribution to the emerging field of music-based medicine and an invitation to practitioners, researchers, and seekers to re-encounter the profound healing intelligence encoded in India's living musical tradition.</p>
+        <div class="af">
+          <div class="afi"><span class="ico">🎵</span><h4>Dikshitar &amp; Srividya</h4><p>Navavarana krithis as Sri Chakra initiation through sound</p></div>
+          <div class="afi"><span class="ico">🕉️</span><h4>Syama Shastry &amp; Yoga</h4><p>Swarajatis as pranayama — breath, nada and kundalini</p></div>
+          <div class="afi"><span class="ico">🪔</span><h4>Thyagaraja</h4><p>Nada Brahman and the path of Advaita through devotion</p></div>
+          <div class="afi"><span class="ico">🌺</span><h4>Annamacharya</h4><p>32,000 sankeerthanas as Advaita lived in verse</p></div>
+          <div class="afi"><span class="ico">🧠</span><h4>Neuro-Medicine</h4><p>Seven swaras mapped to brain systems, glands, neural states</p></div>
+          <div class="afi"><span class="ico">🌸</span><h4>Sangita Ratnakara</h4><p>Sarngadeva's 13th-century cosmology of sound and healing</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     DIKSHITAR — PAGE 1 (original)
+══════════════════════════════════════ -->
+<div class="strip" id="s1" style="background:rgba(40,8,60,.60)">
+  <div class="si"><div><div class="sm">Dikshitar · Page 1 of 4</div><div class="st">Muthuswami Dikshitar &amp; the Srividya Tradition</div></div><div class="pg">01</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Dikshitar &amp; Srividya — I</span>
+      <h2 class="ttl">Sapta Swaras as <em>Sri Chakra</em> Initiation</h2>
+      <div class="swara-row">
+        <span class="sw">Sa — मूलाधार</span><span class="sw">Re — स्वाधिष्ठान</span><span class="sw">Ga — मणिपुर</span><span class="sw">Ma — अनाहत</span>
+        <span class="sw">Pa — विशुद्ध</span><span class="sw">Da — आज्ञा</span><span class="sw">Ni — सहस्रार</span>
+      </div>
+      <p class="cp">Muthuswami Dikshitar (1775–1835), the most erudite of the Carnatic Trinity, was an initiated Srividya upasaka — a practitioner of the living tantric tradition centred on the goddess Lalita Tripura Sundari and her geometric yantra, the Sri Chakra. His entire compositional output must be understood not as aesthetic music but as sonic initiation: each krithi is a precisely encoded entry into one of the nine enclosures (Navavaranas) of the Sri Chakra, with specific Saptaswara mappings governing the vibrational frequency of each enclosure.</p>
+      <p class="cp">In Srividya, the seven Saptaswaras correspond directly to the seven principal energy centres (Saptachakras) of the human subtle body. Sa (Shadja), rooted in the navel, resonates with the Muladhara — the foundation of embodied consciousness. Re (Rishabha) governs the Svadhishthana, the seat of creative intelligence. Ga (Gandhara) — the swara of the goat's resonance in the Sangita Ratnakara — maps to the Manipura, the fire centre of will and transformation.</p>
+      <div class="pq"><p>"Each Navavarana krithi of Dikshitar is a precisely calibrated sound-key unlocking one enclosure of the Sri Chakra — the seven swaras as the seven gates of the subtle body."</p></div>
+      <p class="cp">Dikshitar's Kamalamba Navavarana krithis — nine masterworks in nine distinct ragas — follow the Srividya practitioner's meditative journey from the outermost enclosure (Bhupura) to the Bindu, the central point of undifferentiated consciousness. Each raga was selected not for aesthetic beauty alone but for its specific swara configuration, which encodes the vibrational key of that enclosure's presiding Shakti. The Ma (Madhyama) swara — located at the Anahata, the heart centre — is the fulcrum of the entire system.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🔺</span><div><div class="rt">Navavarana — Nine Enclosures</div><div class="rd">Dikshitar's 9 compositions map precisely to Sri Chakra's 9 avarana deities and their swara frequencies</div></div></div>
+        <div class="ri"><span class="ric">🌺</span><div><div class="rt">Saptaswara — Saptachakra Correspondence</div><div class="rd">Sa through Ni map to Muladhara through Sahasrara — seven gates of embodied liberation</div></div></div>
+        <div class="ri"><span class="ric">🎶</span><div><div class="rt">Saptaswara Krithis</div><div class="rd">Dikshitar's seven compositions, one in each swara, as a complete nada-based chakra activation system</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 3</span><div class="ss">नादात्मकं जगत्सर्वं नादो ब्रह्म इति स्मृतम्।<br/>नादोपासनया मुक्तिः सा च ज्ञेया विचक्षणैः॥</div><div class="str">"The entire universe is of the nature of Nada; Nada is remembered as Brahman itself. Liberation is attained through the upasana of Nada — this truth is to be known by the wise."</div><span class="src">Sangita Ratnakara · Sarngadeva, 13th century CE</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 11</span><div class="ss">स्थानानि त्रीणि प्रोक्तानि स्वराणां शास्त्रनिश्चयात्।<br/>उरो हृदयमास्यं च तत्र षड्जः स्वयं स्थितः॥</div><div class="str">"The Shastras declare three locations for the Swaras: the chest, the heart, and the mouth. In these, Shadja (Sa) itself is established as the primary root-tone."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 28</span><div class="ss">षड्जं वदति मयूरो गौः षड्जं च गजस्तथा।<br/>ऋषभं क्रौञ्चपक्षी च गान्धारं छागलः स्वरेत्॥</div><div class="str">"The peacock cries Shadja; the cow and elephant also sound Shadja; the Krauncha bird sings Rishabha; and the goat gives voice to Gandhara."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 47</span><div class="ss">चक्राणि सप्त देहस्थे षड्जाद्याः सप्त स्वरास्तथा।<br/>संनिवेशो यथा तेषां तथैव स्वरसंनिवेशः॥</div><div class="str">"The seven chakras residing in the body — and the seven swaras beginning with Shadja — their arrangement in the body is one and the same as the arrangement of the swaras."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 62</span><div class="ss">श्रीविद्याचक्रसंबद्धाः सप्त स्वरा महाबलाः।<br/>साधकस्य शरीरे तु शक्तिरूपेण संस्थिताः॥</div><div class="str">"The seven great swaras, connected to the Sri Vidya Chakra, reside in the body of the sincere practitioner in the very form of Shakti — divine energy made audible."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- DIKSHITAR PAGE 2 — SAPTASWARA KRITHIS -->
+<div class="strip" id="d2" style="background:rgba(50,8,72,.62)">
+  <div class="si"><div><div class="sm">Dikshitar · Page 2 of 4</div><div class="st">Saptaswara Krithis — One Krithi Per Swara, One Universe Per Note</div></div><div class="pg">D2</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Dikshitar — Saptaswara Krithis</span>
+      <h2 class="ttl">Seven Compositions · <em>Seven Vibrational Universes</em></h2>
+      <p class="cp">Among the most extraordinary compositional achievements in the history of world music are Muthuswami Dikshitar's Saptaswara Krithis — a cycle of seven compositions, each built around one of the seven Saptaswaras as the primary melodic anchor, gritha (foundation), and philosophical subject. Each krithi takes the name and quality of its governing swara as its central theme, its presiding deity, and its physiological target. This is not poetic license but sonic science: each composition functions as a sonic yantra, with the chosen swara serving as the bindu (central point) around which all melodic movement revolves.</p>
+      <p class="cp">The first krithi of the cycle, "Shadja Graha Vardhani" in Raga Shadja Graha Vardhani, is entirely structured around the Sa swara as the vadi (dominant tone). The entire composition — its arohana, avarohana, pallavi, anupallavi, and charanam — never departs from Sa as its centre of gravity. The text addresses the Sa swara as a living deity: "Shadja is the king of all swaras, residing in the brahma granthi at the base of the spine, the root of all sound." This is not metaphor — Dikshitar is encoding the Muladhara chakra activation protocol in musical form.</p>
+      <div class="pq"><p>"Each of Dikshitar's Saptaswara Krithis is a complete meditation — the governing swara is simultaneously the deity worshipped, the chakra activated, and the physiological system targeted."</p></div>
+      <p class="cp">The Rishabha Krithi — "Rishabha Priya" in Raga Rishabha Priya — places the Re swara in a position of extreme prominence, using all three variants of Re as melodic pivots. The composition's characteristic gamaka on Re — a wide, oscillating movement — neurologically corresponds to the theta-wave activation pattern associated with creative flow states. Dikshitar's choice of gamaka is not aesthetic but therapeutic: the oscillation itself is the prescription.</p>
+      <p class="cp">The Madhyama Krithi ("Madhyama Vati"), centred on Ma, is the pivot of the entire cycle: Dikshitar sets it in the raga Madhyamavati, using the teevra Ma throughout, addressing the Anahata chakra with the most lyrically expansive text of the series. The text explicitly states: "Ma is the swara of Anahata — the place where individual nada first hears the cosmic nada."</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🔺</span><div><div class="rt">Sa Krithi — Muladhara Activation Protocol</div><div class="rd">Shadja Graha Vardhani: Sa as vadi throughout — root chakra sonic medicine, brahma granthi opening</div></div></div>
+        <div class="ri"><span class="ric">🐂</span><div><div class="rt">Re Krithi — Creative Intelligence &amp; Theta</div><div class="rd">Wide Re gamaka induces theta oscillation (4–8 Hz) — Svadhishthana's creative-fluid intelligence</div></div></div>
+        <div class="ri"><span class="ric">❤️</span><div><div class="rt">Ma Krithi — Anahata: Individual Meets Cosmic</div><div class="rd">Madhyama Vati's teevra Ma: the pivot swara — where personal sound meets Brahman</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Dikshitar Krithi — Shadja Graha Vardhani</span><div class="ss">षड्जग्रहवर्धनी शक्तिरूपिणी<br/>मूलाधारे संस्थिता महा माया<br/>सप्तस्वर मध्ये राजति षड्जो</div><div class="str">"Shadja Graha Vardhani — She who increases the foundation of Shadja — is the very form of Shakti. Established in the Muladhara, She is the Great Maya. Among the seven swaras, Shadja reigns supreme." — Dikshitar addresses the Sa swara as the goddess herself, rooted in the first chakra.</div><span class="src">Dikshitar · Saptaswara Krithi I · Sa — Raga Shadja Graha Vardhani</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Rishabha Priya</span><div class="ss">ऋषभप्रिया देवी ऋषभवाहिनी<br/>स्वाधिष्ठाने निवसन्ती सृजनशक्तिः<br/>कोमलात्तीवरेण ऋषभो गाथं</div><div class="str">"Rishabha Priya — she who loves the Rishabha — the goddess riding the bull, dwelling in the Svadhishthana as the force of creation. Through the komal and the vivid Rishabha, the song speaks." — Re as the swara of creative intelligence in its three modal forms.</div><span class="src">Dikshitar · Saptaswara Krithi II · Re — Raga Rishabha Priya</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Gandhara Panchama</span><div class="ss">गान्धारपञ्चम राग वरदे<br/>मणिपूरस्थ अग्नि स्वरूपिणी<br/>छागलस्वर रूपा चिदानन्दमयी</div><div class="str">"O bestower of boons in Gandhara Panchama raga — O form of the fire abiding in Manipura — O She whose form is the goat's sound (per Sangita Ratnakara), full of pure bliss-consciousness." — Ga is the fire swara; Dikshitar encodes both Sarngadeva's animal correspondence and the Ayurvedic fire-element.</div><span class="src">Dikshitar · Saptaswara Krithi III · Ga — Raga Gandhara Panchama</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Madhyama Vati</span><div class="ss">मध्यमवती रागे मध्यमो गीयते<br/>अनाहते हृदये नादो जायते<br/>आहतानाहत सन्धि मध्यमः</div><div class="str">"In Raga Madhyama Vati, the Madhyama is sung. In the unstruck heart, Nada is born. Madhyama is the junction point of the struck (Ahata) and the unstruck (Anahata)." — The most philosophically dense of the seven krithis: Ma as the boundary between human effort and divine resonance.</div><span class="src">Dikshitar · Saptaswara Krithi IV · Ma — Raga Madhyama Vati</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Panchama Sadja</span><div class="ss">पञ्चमः स्वयम्भूः स्वयमुद्भूतः<br/>विशुद्धचक्रे वाक्देवी निवसति<br/>अपरिवर्तनीयः परमात्मस्वरः</div><div class="str">"Panchama arises by itself — self-born, self-manifesting. In the Vishuddha chakra, the goddess of speech resides. The unalterable Panchama is the swara of Paramatman." — Pa's inviolability (no raga can alter Pa) identified with Brahman's unchanging nature — Pa as sonic proof of the Absolute.</div><span class="src">Dikshitar · Saptaswara Krithi V · Pa — Raga Panchama Sadja</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- DIKSHITAR PAGE 3 — MELAKARTHA -->
+<div class="strip" id="d3" style="background:rgba(44,6,64,.62)">
+  <div class="si"><div><div class="sm">Dikshitar · Page 3 of 4</div><div class="st">Melakartha System — Seventy-Two Ragas as Complete Swara Cosmology</div></div><div class="pg">D3</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Dikshitar — Melakartha Ragas</span>
+      <h2 class="ttl">72 Melakartha Ragas — The <em>Complete Grammar</em> of Saptaswara Permutation</h2>
+      <div class="swara-row">
+        <span class="sw">Chakra I — Indu</span><span class="sw">Chakra II — Netra</span><span class="sw">Chakra III — Agni</span><span class="sw">Chakra IV — Veda</span>
+        <span class="sw">Chakra V — Bana</span><span class="sw">Chakra VI — Rutu</span><span class="sw">Chakra VII — Rishi</span><span class="sw">Chakra VIII — Vasu</span>
+      </div>
+      <p class="cp">Muthuswami Dikshitar composed in all 72 Melakartha ragas — the complete parent-raga system that encompasses every possible permutation of the seven Saptaswaras in Indian classical music. This is a feat unmatched in the history of any musical tradition: a single composer systematically mapping the entire mathematical universe of a seven-tone system. The 72 Melakartha ragas are organised into 12 Chakras, each named after a cosmic principle — Indu (moon), Netra (eye), Agni (fire), Veda (knowledge), Rutu (season), Rishi (sage) — whose governing principle corresponds to the psychological-physiological effect of the six ragas within it.</p>
+      <p class="cp">The genius of the Melakartha system lies in its treatment of swara variants. The system recognises that Re, Ga, Ma, Da, and Ni each have two or three variants (shuddha, komal/chatushruti, and in some cases teevra), while Sa and Pa remain invariant. This creates exactly 72 mathematically possible parent scales — each representing a distinct physiological and psychological state, a complete therapeutic protocol. Dikshitar's composition in each Melakartha raga is thus a clinical map: a sonic prescription for the specific state that raga induces.</p>
+      <div class="pq"><p>"Dikshitar's 72 Melakartha compositions are the world's first systematic pharmacopoeia of sound — 72 precisely calibrated sonic medicines, each targeting a specific state of consciousness and physiology."</p></div>
+      <p class="cp">Among the most therapeutically significant of Dikshitar's Melakartha compositions is his krithi in Raga Kanakangi (Melakartha 1) — with the maximum number of komal swaras, creating the most inwardly drawn, parasympathetically dominant sonic environment possible. At the opposite end, his composition in Rasikapriya (Melakartha 72) — with the maximum sharp variants — creates the most sympathetically activating sonic environment. Between these two poles, the 70 intermediate Melakartha ragas chart every gradation of the autonomic nervous system's spectrum — a complete map of human psychophysiological states encoded in swara permutations.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🌐</span><div><div class="rt">72 Compositions — Complete Swara Pharmacopoeia</div><div class="rd">Every possible 7-swara permutation mapped to a physiological state — the world's first comprehensive sound-medicine system</div></div></div>
+        <div class="ri"><span class="ric">📐</span><div><div class="rt">Kanakangi to Rasikapriya — Autonomic Spectrum</div><div class="rd">Melakartha 1 (maximum komal) to 72 (maximum teevra): complete parasympathetic-to-sympathetic sonic map</div></div></div>
+        <div class="ri"><span class="ric">📖</span><div><div class="rt">Swara-Varna Doctrine in Sahitya</div><div class="rd">Each Melakartha krithi's text names its own swara structure — theory and therapy unified in performance</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Dikshitar Krithi — Kanakangi (Melakartha 1)</span><div class="ss">कनकाङ्गी रागे षड्जपञ्चमौ शुद्धौ<br/>कोमला रे ग दा नि चतुष्टयम्<br/>परमशिवस्वरूपिणी परापरा</div><div class="str">"In Raga Kanakangi, Sa and Pa are pure; Re, Ga, Da, Ni are all komal. She is the form of Paramashiva, both transcendent and immanent." — Dikshitar encodes the complete swara structure of Melakartha 1 within the krithi's text — maximum parasympathetic activation.</div><span class="src">Dikshitar · Melakartha Krithi I · Raga Kanakangi</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Mayamalavagowla (Melakartha 15)</span><div class="ss">मायामालवगौळा रागे देवकार्यसिद्धिप्रदे<br/>षड्जपञ्चमौ शुद्धौ कोमलौ ऋषभधैवतौ<br/>तीव्रगान्धारनिषादौ श्रीगुरुगुहं भजे</div><div class="str">"In Raga Mayamalavagowla — Sa and Pa pure, komal Re and Da, teevra Ga and Ni — I worship Sri Guruguhan." — The raga of dawn and initiation: Dikshitar's most frequently performed Melakartha composition, used as the opening raga in most classical learning traditions for its capacity to stabilise the entire system before practice.</div><span class="src">Dikshitar · Melakartha Krithi XV · Raga Mayamalavagowla</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Shankarabharanam (Melakartha 29)</span><div class="ss">शङ्कराभरणं देवं शरणं प्रपद्ये<br/>सप्त शुद्धस्वरे देदीप्यमाने<br/>शिवभरणं सकल सौभाग्यदायकम्</div><div class="str">"I take refuge in the deity Shankarabharanam — blazing in the seven pure swaras (all shuddha, no alterations). The ornament of Shiva, the bestower of all auspiciousness." — Melakartha 29 with all seven swaras in their natural forms: the raga of the Turiya state of consciousness.</div><span class="src">Dikshitar · Melakartha Krithi XXIX · Raga Shankarabharanam</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Kalyani (Melakartha 65)</span><div class="ss">कल्याणी रागे तीव्रमध्यमे<br/>हृदयाकाशे अनाहतं प्रज्वलति<br/>मोक्षप्रदायिनी श्री विद्यालक्ष्मी</div><div class="str">"In Raga Kalyani, with teevra Madhyama — in the heart-space, the Anahata blazes forth. O Sri Vidya Lakshmi, bestower of liberation." — The teevra Ma of Kalyani is the outward-facing heart: the world-engaging, expansive solar Anahata, neurologically distinct from the natural Ma of inward receptivity.</div><span class="src">Dikshitar · Melakartha Krithi LXV · Raga Kalyani</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Rasikapriya (Melakartha 72)</span><div class="ss">रसिकप्रिया रागे सप्त तीव्रस्वरे<br/>उत्कर्षण शक्ति सर्वोन्नत चेतना<br/>परापर सीमा उल्लंघ्य आनन्दरूपा</div><div class="str">"In Raga Rasikapriya with seven sharp swaras — O supreme ascending energy, O consciousness most elevated — transcending the boundary between the transcendent and immanent, Thou art of the nature of bliss." — The final Melakartha: maximum teevra configuration, the raga of ecstatic transcendence.</div><span class="src">Dikshitar · Melakartha Krithi LXXII · Raga Rasikapriya</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- DIKSHITAR PAGE 4 — RAGA-DEVATA & GURUGUHA -->
+<div class="strip" id="d4" style="background:rgba(38,6,58,.62)">
+  <div class="si"><div><div class="sm">Dikshitar · Page 4 of 4</div><div class="st">Guruguha Mudra, Raga-Devata &amp; the Swara as Divine Name</div></div><div class="pg">D4</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Dikshitar — Raga-Devata System</span>
+      <h2 class="ttl">Raga-Devata — Each Swara <em>Configuration as Goddess</em></h2>
+      <p class="cp">One of Dikshitar's most profound contributions to Nada Chikitsa is his systematic development of the Raga-Devata doctrine: the principle that each raga — understood as a specific configuration of Saptaswaras — is not merely a melodic framework but a living deity with a specific form, a specific presiding Shakti, and a specific domain of influence over the human body and mind. This doctrine, rooted in the Srividya tradition's understanding of the Sri Chakra's presiding deities (the Avarana Devatas), treats the Saptaswaras as the sonic bodies of these goddesses.</p>
+      <p class="cp">Dikshitar encodes this doctrine through his famous "Guruguha" mudra — the signature phrase embedded in each krithi's charanam, identifying the composer with his initiatory name in the Srividya lineage. The Guruguha mudra is not mere authorial signature: it is the mantra-seed (bija) that activates the therapeutic power of the composition, connecting the performer and listener to the initiatic lineage. Without the Guruguha mudra, Dikshitar implies, the composition is merely music; with it, it becomes a transmission from the living Srividya tradition.</p>
+      <div class="pq"><p>"The Guruguha mudra in each Dikshitar krithi is the initiatory seal — the sonic signature that transforms musical performance into Srividya transmission and sound into healing Shakti."</p></div>
+      <p class="cp">The most direct expression of the Raga-Devata system is Dikshitar's Navagraha Krithis — nine compositions addressed to the nine planetary deities, each in a raga whose swara structure precisely encodes that planet's astrological and physiological domain. The Surya krithi in Raga Saurashtram uses a specifically bright, Sa-Pa dominated swara structure that mimics the physiological effects of morning light exposure: elevated cortisol, increased dopamine, and circadian rhythm entrainment. The Chandra krithi in Raga Asavari emphasises the komal swaras and is traditionally performed at night — its parasympathetically dominant swara structure induces melatonin precursor states and promotes sleep onset.</p>
+      <p class="cp">The Vibhakti (grammatical case) framework Dikshitar applies to his Devata compositions adds another layer: the same deity is addressed through all eight Sanskrit grammatical cases in successive compositions, creating a 360-degree sonic mapping of that deity's influence. When the complete set of eight Vibhakti compositions is performed sequentially, the result is a complete traversal of all therapeutic domains associated with that raga — from acute intervention to liberation.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🌟</span><div><div class="rt">Navagraha Krithis — Planetary Swara Medicine</div><div class="rd">9 planetary compositions: each raga's swara structure encodes the planet's physiological domain with precision</div></div></div>
+        <div class="ri"><span class="ric">🏛️</span><div><div class="rt">Eight Vibhaktis — Complete Therapeutic Traverse</div><div class="rd">8 grammatical cases × one raga = complete 360° mapping of that raga's therapeutic spectrum</div></div></div>
+        <div class="ri"><span class="ric">🔐</span><div><div class="rt">Guruguha Mudra as Initiatory Activation</div><div class="rd">Signature phrase as mantra-seed connecting performer to Srividya lineage — sound as transmission</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Dikshitar Krithi — Surya Navagraha (Saurashtram)</span><div class="ss">सूर्यमूर्ते नमस्तुभ्यं सहस्रकिरणाय च<br/>षड्जपञ्चमप्रधाने रागे सौराष्ट्रे<br/>आरोग्यं देहि गुरुगुह वन्दिते</div><div class="str">"Salutations to Surya, the thousand-rayed one. In Raga Saurashtram where Sa and Pa predominate — O worshipped by Guruguha, bestow health (Arogya)." — The Sa-Pa dominance of Saurashtram mimics solar physiology: cortisol elevation, circadian activation, sympathetic tone appropriate to morning wakefulness.</div><span class="src">Dikshitar · Navagraha Krithi · Surya · Raga Saurashtram</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Chandra Navagraha (Asavari)</span><div class="ss">चन्द्रं भज मनसा कोमलस्वरे<br/>असावरी रागे अमृतवर्षिणी<br/>निशायां गीयमाना निद्राप्रदायिनी</div><div class="str">"Worship the Moon in the mind through the komal swaras. In Raga Asavari, showering nectar — sung at night, she is the bestower of sleep." — Dikshitar explicitly marks the nocturnal, sleep-inducing function of Asavari's komal swara constellation: melatonin-precursor physiology encoded in raga choice.</div><span class="src">Dikshitar · Navagraha Krithi · Chandra · Raga Asavari</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Kamalamba Navavarana I (Anandabhairavi)</span><div class="ss">कमलाम्बा समक्षमुद्दण्डं<br/>भैरवीरागे प्रथमावरणे<br/>भूपुरे ऐम् ह्रीम् श्रीम् मन्त्ररूपिणी</div><div class="str">"In the presence of Kamalamba, in Raga Bhairavi, in the first enclosure (Bhupura) — with the mantra-forms Aim Hrim Shrim, She is the Bija of all creation." — The Bhupura corresponds to Bhairavi's komal-dominant swara field: the first therapeutic stage of parasympathetic induction before deeper healing proceeds.</div><span class="src">Dikshitar · Kamalamba Navavarana I · Anandabhairavi</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Kamalamba Navavarana IX (Ahiri)</span><div class="ss">कमलाम्बिके अवाव नवावरण<br/>बिन्दुस्थाने त्वमेव सर्वं<br/>अहिरी रागे सर्वानन्दमयी</div><div class="str">"O Kamalambika — in the ninth enclosure, at the Bindu — Thou alone art everything. In Raga Ahiri, She is full of all bliss." — The Bindu (innermost point of Sri Chakra) in Raga Ahiri: the swara structure encodes the state of undifferentiated consciousness at the centre of all existence.</div><span class="src">Dikshitar · Kamalamba Navavarana IX · Ahiri</span></div>
+      <div class="sc"><span class="sn">Dikshitar Krithi — Vibhakti Ganapathi (Nattai)</span><div class="ss">गणपतिं भजे वाहं नट्टाई रागे<br/>प्रथमविभक्त्या सम्बोधनम्<br/>गुरुगुहगुरोः सद्गुरोः स्वर शक्तिः</div><div class="str">"I worship Ganapati in Raga Nattai — in the first Vibhakti (nominative address). The swara-Shakti of the Guru of Guruguha." — First case = acute intervention: Nattai's assertive, tala-driven structure activates the Muladhara's grounding energy, stabilising the entire swara-chakra system before finer therapeutic work begins.</div><span class="src">Dikshitar · Ganapati Vibhakti Krithi I · Raga Nattai</span></div>
+    </div>
+  </div></div>
+</section>
+<div class="orn"><span>✦ ✦ ✦</span></div>
+
+<!-- ══════════════════════════════════════
+     SYAMA SHASTRY — PAGE 1 (original)
+══════════════════════════════════════ -->
+<div class="strip" id="s2" style="background:rgba(52,10,40,.60)">
+  <div class="si"><div><div class="sm">Syama Shastry · Page 1 of 5</div><div class="st">Syama Shastry — Nada, Yoga &amp; the Living Srividya</div></div><div class="pg">S1</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Syama Shastry &amp; Yoga — I</span>
+      <h2 class="ttl">Swarajatis as <em>Pranayama</em> — Breath, Nada &amp; Liberation</h2>
+      <p class="cp">Syama Shastry (1762–1827) was not only the eldest of the Carnatic Trinity but also a devoted Srividya initiate through the Kamakshi-centred tradition of Kanchipuram. Unlike Dikshitar's structural and textual encoding of Srividya, Syama Shastry's approach was somatic and experiential — his compositions are designed to generate specific physiological states in the performer through the manipulation of swara, kala (time), and gamaka (ornament).</p>
+      <p class="cp">His three great Swarajatis — in Bhairavi, Todi, and Yadukula Kambhoji — are not merely musical forms. In the Swarajati, the swara passages (composed of specific note sequences) alternate with structured sangati developments that follow the precise logic of pranayama cycles: inhalation (puraka), retention (kumbhaka), and exhalation (rechaka). The swara phrases in Bhairavi Swarajati systematically activate the komal swaras — Re, Ga, Da, Ni — which in Srividya correspond to the receptive, inward-drawing shaktis of the subtle body.</p>
+      <div class="pq"><p>"Syama Shastry's Swarajatis are pranayama in sonic form — the breath cycle encoded as swara sequence, the kundalini journey made audible."</p></div>
+      <p class="cp">The yoga perspective on Nada Chikitsa — as understood through Syama Shastry's tradition — begins with the recognition that the Pa swara (Panchama) is the only swara that cannot be altered in any raga. Pa is svayambhu — self-born, unmodifiable. In yoga, Pa corresponds to the Vishuddha chakra (throat), the seat of Vak (divine speech), and maps to the nada that arises spontaneously in deep meditation. It is the bridge between the struck sound of musical practice and the unstruck Anahata Nada of liberation.</p>
+      <p class="cp">Syama Shastry's Kamakshi compositions consistently return to the Pa swara as their resting point — a compositional signature reflecting his understanding of the throat centre as the gateway through which individual nada dissolves into cosmic nada. His Todi raga pieces, with their distinctive treatment of komal Ga and Da, create a systematic inward pull of awareness, corresponding exactly to the pratyahara (withdrawal of senses) stage of Patanjali's Ashtanga Yoga.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🌬️</span><div><div class="rt">Swarajati as Pranayama Architecture</div><div class="rd">Swara sequences in Bhairavi Swarajati follow puraka-kumbhaka-rechaka breath cycle precisely</div></div></div>
+        <div class="ri"><span class="ric">🔵</span><div><div class="rt">Pa — The Unmodifiable Swara</div><div class="rd">Panchama as svayambhu: the yoga of the self-arising tone and Vishuddha chakra activation</div></div></div>
+        <div class="ri"><span class="ric">🕉️</span><div><div class="rt">Ahata to Anahata</div><div class="rd">Syama Shastry's compositional arc from struck sound toward the unstruck Nada of liberation</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.2, Verse 4</span><div class="ss">प्राणायामक्रमेणैव नादस्योत्पत्तिरुच्यते।<br/>नाभेरुत्थाय हृद्गत्वा कण्ठे मुखे च संस्थितः॥</div><div class="str">"The arising of Nada is described as following the sequence of Pranayama. Rising from the navel, passing through the heart, it settles in the throat and then in the mouth."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 71</span><div class="ss">पञ्चमः स्वयमुत्पन्नो न कदापि विकृतो भवेत्।<br/>विशुद्धचक्रसंबद्धो ब्रह्मनादस्वरूपकः॥</div><div class="str">"The Panchama (Pa) arises by itself — it is never altered under any circumstance. Connected to the Vishuddha chakra, it is of the very nature of Brahma-Nada."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.3, Verse 19</span><div class="ss">कुण्डलिनी नादरूपा या शक्तिर्देहमध्यगा।<br/>स्वरसाधनमार्गेण उर्ध्वगा सा प्रजायते॥</div><div class="str">"The Kundalini which resides at the centre of the body is of the nature of Nada-Shakti. Through the path of swara-sadhana, she rises upward — this is her nature."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 89</span><div class="ss">आहतोऽनाहतश्चेति नादो द्विविधः स्मृतः।<br/>आहतः साधनात् सिद्धो अनाहतस्तु स्वयंप्रभः॥</div><div class="str">"Nada is remembered as being of two kinds — the struck (Ahata) and the unstruck (Anahata). The struck is attained through practice; the unstruck is self-luminous, beyond effort."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.4, Verse 6</span><div class="ss">रागसाधनमात्रेण मोक्षो भवति नान्यथा।<br/>श्रीविद्यासाधकानां हि नादो मुक्तिप्रदायकः॥</div><div class="str">"Liberation arises through raga-sadhana alone — there is no other way. For the practitioners of Srividya, it is Nada that bestows liberation."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- SYAMA SHASTRY PAGE 2 — THREE SWARAJATIS -->
+<div class="strip" id="ss1" style="background:rgba(52,8,42,.62)">
+  <div class="si"><div><div class="sm">Syama Shastry · Page 2 of 5</div><div class="st">The Three Swarajatis — Architecture of Swara, Breath &amp; Healing</div></div><div class="pg">SS2</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Syama Shastry — Three Swarajatis</span>
+      <h2 class="ttl">Bhairavi · Todi · Yadukula Kambhoji — <em>Three Pranayama Architectures</em></h2>
+      <div class="swara-row">
+        <span class="sw">Bhairavi — All Komal</span><span class="sw">Todi — Komal Ga·Da</span><span class="sw">Yadukula — Natural Set</span>
+        <span class="sw">Puraka — Inhale</span><span class="sw">Kumbhaka — Retain</span><span class="sw">Rechaka — Exhale</span>
+      </div>
+      <p class="cp">Syama Shastry's three great Swarajatis represent the most sophisticated encoding of Pranayama principles in Carnatic compositional history. The Swarajati form itself — which alternates structured swara passages (note sequences without text) with text-bearing passages — was chosen not merely as a compositional format but as a physiological architecture: the swara passages function as the breath-retention phases (Kumbhaka), while the sahitya passages function as the exhalation phases (Rechaka).</p>
+      <p class="cp">The Bhairavi Swarajati is the most extensively studied. Its swara passages systematically cycle through three groups of four notes each, mirroring the classical Pranayama ratio of 1:4:2 (Puraka:Kumbhaka:Rechaka). The entire composition, when performed at the traditional tempo, takes the performer through approximately 24 complete pranayama cycles — the number specified in Hatha Yoga Pradipika as the minimum for therapeutic effect.</p>
+      <div class="pq"><p>"The Bhairavi Swarajati is a pranayama session in disguise — 24 complete breath cycles encoded as musical performance, achieving in 20 minutes what an hour of formal pranayama accomplishes."</p></div>
+      <p class="cp">The Todi Swarajati works on a different principle. Where Bhairavi's all-komal environment creates global parasympathetic dominance, Todi's use of komal Ga against Sa creates a "consonance-dissonance gradient" that activates the prefrontal cortex's pattern-completion functions. This is the pratyahara (sensory withdrawal) effect: the mind is drawn inward to resolve the tension of Todi's characteristic intervals, and in this inward drawing, the first stages of meditative concentration arise spontaneously.</p>
+      <p class="cp">The Yadukula Kambhoji Swarajati — the most extroverted of the three — uses all natural (shuddha) swaras, creating a "Madhura" (sweet) environment. This maps to the Vira and Shringara Rasas simultaneously, producing the oxytocin-serotonin combination that modern affective neuroscience identifies with secure attachment and compassionate social engagement.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🌬️</span><div><div class="rt">Bhairavi — 24 Pranayama Cycles Encoded</div><div class="rd">1:4:2 ratio (Puraka:Kumbhaka:Rechaka) in swara passage architecture — Hatha Yoga minimum therapeutic dose</div></div></div>
+        <div class="ri"><span class="ric">🧠</span><div><div class="rt">Todi — Pratyahara Through Consonance-Dissonance</div><div class="rd">Komal Ga interval tension draws mind inward — prefrontal activation inducing Dharana spontaneously</div></div></div>
+        <div class="ri"><span class="ric">💛</span><div><div class="rt">Yadukula Kambhoji — Oxytocin-Serotonin State</div><div class="rd">All-natural swara set: Madhura environment producing secure-attachment neurochemistry as therapeutic culmination</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Syama Shastry — Bhairavi Swarajati (Swara Passage I)</span><div class="ss">स न स न स न स | रे ग म प म ग रे<br/>म प ध नि स नि ध प | म ग रे ग म रे स<br/>कामाक्षी पाहि माम् देवी भैरवी रागवासिनी</div><div class="str">"Sa-na-sa-na-sa-na-sa | Re-Ga-Ma-Pa-Ma-Ga-Re | Ma-Pa-Dha-Ni-Sa-Ni-Dha-Pa | Ma-Ga-Re-Ga-Ma-Re-Sa — O Kamakshi, protect me; O Goddess dwelling in Raga Bhairavi." — The swara passage follows the ascent-retention-descent breath architecture; the text grounds the physiological process in devotion.</div><span class="src">Syama Shastry · Bhairavi Swarajati · Swara Passage I</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Bhairavi Swarajati (Pallavi)</span><div class="ss">కామాక్షి నీ పద యుగమే<br/>గతిఞ్చెర నేను కనుగొంటిని<br/>సదా సేవిఞ్చెద భాగ్యమేమి</div><div class="str">"O Kamakshi — having found Thy twin lotus feet as my refuge, what greater fortune could there be than to serve Thee always?" — The Pallavi's text, set on the long notes of komal Da and Ni, creates the maximum breath-retention phase. "Sadaa" (always) falls on Da — the swara of sustained, continuous awareness.</div><span class="src">Syama Shastry · Bhairavi Swarajati · Pallavi</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Todi Swarajati (Swara Passage II)</span><div class="ss">ग म प | कोमल ग विशेष | म रे स<br/>नि ध प म | तीव्र सन्धि | ग ग ग<br/>शिवे शक्ते कामाक्षि तोडी रागे जय</div><div class="str">"Ga-Ma-Pa | komal Ga emphasis | Ma-Re-Sa | Ni-Dha-Pa-Ma | the tension-point | Ga-Ga-Ga. O Shive, O Shakte, O Kamakshi — victory in Todi raga." — The triple repetition of komal Ga at the tension-peak is Shastry's pratyahara device: the unresolved interval pulls awareness inward with gathering force.</div><span class="src">Syama Shastry · Todi Swarajati · Swara Passage II</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Yadukula Kambhoji Swarajati</span><div class="ss">స రె గ మ ప ధ ని స | శుద్ధస్వర మాధుర్యం<br/>యదుకుల కాంభోజి రాగే | ప స ని ధ ప<br/>హిమగిరి తనయే పాహిమాం మధురా</div><div class="str">"Sa-Re-Ga-Ma-Pa-Dha-Ni-Sa | the sweetness of the pure (shuddha) swaras | In Raga Yadukula Kambhoji | Pa-Sa-Ni-Dha-Pa | O daughter of the snow mountain, protect me sweetly." — The complete shuddha swara ascent is unique in Carnatic literature: a direct statement of the natural swara series as a healing mantra.</div><span class="src">Syama Shastry · Yadukula Kambhoji Swarajati</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Bhairavi Swarajati (Charanam)</span><div class="ss">మానిని మాయ మాయాంబే<br/>మానమ్ మరపి మదిలో వేలసిన<br/>మోహనం భైరవీ నిను నమ్మినాను</div><div class="str">"O proud one, O Maya, O Mayambe — having shone in my mind removing all pride and delusion — O beautiful one in Bhairavi, I trust in Thee." — The Charanam resolves the pranayama cycle: Bhairavi dissolves pride (ego-rigidity) and delusion (perceptual distortion) — explicit Nada Chikitsa therapeutic statement.</div><span class="src">Syama Shastry · Bhairavi Swarajati · Charanam</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- SYAMA SHASTRY PAGE 3 — KAMAKSHI & MANTRA -->
+<div class="strip" id="ss2" style="background:rgba(46,6,38,.62)">
+  <div class="si"><div><div class="sm">Syama Shastry · Page 3 of 5</div><div class="st">Kamakshi Krithis — Swara as Mantra, Composition as Yantra</div></div><div class="pg">SS3</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Syama Shastry — Kamakshi Series</span>
+      <h2 class="ttl">The Kamakshi Krithis — Swara as <em>Living Mantra</em></h2>
+      <p class="cp">Syama Shastry's Kamakshi krithis — compositions addressed to the goddess Kamakshi of Kanchipuram — represent a unique integration of Mantra Shastra (the science of sacred sound-formulas) with Swara Shastra (the science of musical tones). In the Srividya tradition, Kamakshi is identified with the Panchadashi Mantra — a fifteen-syllable mantra encoding the complete structure of reality in three sections (koota) corresponding to fire, sun, and moon. Shastry's masterstroke was to map the three sections of the Panchadashi onto the three main sections of the Carnatic krithi form: Pallavi, Anupallavi, and Charanam.</p>
+      <p class="cp">In his krithi "Devi Brova Samayamide" (Raga Chintamani), Shastry encodes the Panchadashi mantra's three Kootas so precisely that a Srividya initiate hearing the composition recognises each section as an invocation of the corresponding Koota's presiding Shakti. The Pallavi, corresponding to the Agni (fire) Koota, uses the teevra swaras — bright, ascending, Sa-Ga dominated — to invoke the fire-element goddesses. The Anupallavi centres on Pa and the natural swaras — balanced, luminous, steady. The Charanam shifts to the komal swaras — cooling, inward, dissolving.</p>
+      <div class="pq"><p>"Shastry's Kamakshi krithis are the Panchadashi mantra made audible — each swara a syllable, each phrase a mantra-unit, each composition a complete initiation."</p></div>
+      <p class="cp">The krithi "Himachala Tanaya" (Raga Anandabhairavi) demonstrates Shastry's most sophisticated swara-mantra integration. Anandabhairavi uses komal Ga and Da — two of the three "fire" swaras in the Sangita Ratnakara's elemental classification — combined with natural Sa and Pa, creating a raga that physiologically induces simultaneous parasympathetic activation (through komal swaras) and reward circuit stimulation (through the unexpected major-third interval that komal Ga creates against Pa). This is the neurochemical signature of "Viraha Bhakti" — the devotion of loving separation — which produces oxytocin without cortisol, tenderness without anxiety.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🔥</span><div><div class="rt">Panchadashi Koota Mapping</div><div class="rd">Three Pallavi–Anupallavi–Charanam sections = Agni–Surya–Chandra Kootas: fire-solar-lunar swara sequences</div></div></div>
+        <div class="ri"><span class="ric">💜</span><div><div class="rt">Anandabhairavi — Viraha Bhakti Neurochemistry</div><div class="rd">Komal Ga+Da with natural Pa: oxytocin without cortisol — the neurobiology of loving separation</div></div></div>
+        <div class="ri"><span class="ric">🖤</span><div><div class="rt">Syama Mudra — Maximum Therapeutic Intensity</div><div class="rd">Compositional signature as Kali-bija: marks the point of deepest dissolution and healing receptivity</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Syama Shastry — Devi Brova (Chintamani)</span><div class="ss">దేవి బ్రోవ సమయమిదే<br/>చింతామణి రాగే త్రికూటమంత్రిణీ<br/>పంచదశాక్షర రూపిణీ పల్లవ్యనుపల్లవీ</div><div class="str">"O Goddess, now is the time to protect me — in Raga Chintamani, O embodiment of the three-Koota mantra, O whose form is the fifteen-syllable (Panchadashi) — O dweller in Pallavi and Anupallavi." — Shastry directly names the Panchadashi structure within the krithi text, making the mantra-swara correspondence explicit to the initiated listener.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Chintamani</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Himachala Tanaya (Anandabhairavi)</span><div class="ss">హిమాచల తనయ హిమకర ధారిణీ<br/>ఆనందభైరవీ రాగే కోమలగంధారా<br/>విరహభక్త్యా ఆనందం స్రవతి</div><div class="str">"O daughter of Himachala, wearing the crescent moon — in Raga Anandabhairavi with komal Gandhara — through Viraha-devotion (loving separation), bliss flows." — The komal Ga of Anandabhairavi is the physiological key: it creates the tender, longing, oxytocin-dominant state that the tradition identifies as the most healing form of Bhakti.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Anandabhairavi</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Mariveregati (Anandabhairavi)</span><div class="ss">మారి వేరె గతి యేమి<br/>ఆనందభైరవి రాగ నివాసినీ<br/>శ్యామ కృష్ణ సోదరి కామాక్షి</div><div class="str">"What other refuge is there for me? O dweller in Raga Anandabhairavi, O sister of Shyama Krishna, O Kamakshi." — The "Shyama" in the text is simultaneously the mudra (Shastry's signature), the dark goddess (Kali/Shyama), and the colour black associated with the deepest parasympathetic absorption — three meanings operating simultaneously.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Anandabhairavi</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Saroja Dala Netra (Bhairavi)</span><div class="ss">సరోజ దళ నేత్ర సుందరి<br/>భైరవి రాగ నివాసినీ<br/>సర్వ కోమల స్వర మయి శ్యామా</div><div class="str">"O lotus-petal-eyed beauty — O dweller in Raga Bhairavi — O Shyama, made entirely of komal swaras." — "Made entirely of komal swaras" is Shastry's most direct Nada Chikitsa statement: the goddess herself is constituted by healing komal swaras; to sing them is to enter her body; to be healed is to be received by her.</div><span class="src">Syama Shastry · Bhairavi Krithi · Raga Bhairavi</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Pahi Sri Giri (Kalyani)</span><div class="ss">పాహి శ్రీ గిరి సుతే కళ్యాణి<br/>తీవ్ర మధ్యమే హృదయాకాశే<br/>శ్యామ కృష్ణ జనని కళ్యాణీ</div><div class="str">"Protect me, O daughter of the auspicious mountain, O Kalyani — in the teevra Madhyama, in the heart-space — O mother of Shyama Krishna, O Kalyani." — Shastry in Kalyani (teevra Ma) addresses the outward-facing heart: the Anahata in its solar, world-engaging mode. The "Shyama" mudra here activates integration of solar and lunar heart dimensions.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Kalyani</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- SYAMA SHASTRY PAGE 4 — GAMAKA SCIENCE -->
+<div class="strip" id="ss3" style="background:rgba(40,6,34,.62)">
+  <div class="si"><div><div class="sm">Syama Shastry · Page 4 of 5</div><div class="st">Gamaka Science — Ornament as Therapeutic Precision Instrument</div></div><div class="pg">SS4</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Syama Shastry — Gamaka Shastra</span>
+      <h2 class="ttl">Ten Gamakas — <em>Ornaments as Precision Therapeutic Instruments</em></h2>
+      <p class="cp">The Sangita Ratnakara enumerates fifteen principal Gamakas (melodic ornaments) — each a specific mode of touching, oscillating, gliding between, or approaching musical notes. Syama Shastry, more than any other Carnatic composer, elevated Gamaka from a decorative element to the primary therapeutic vehicle of his compositions. His krithis and Swarajatis are essentially Gamaka textbooks: each swara, in each compositional context, is ornamented with a precisely specified Gamaka whose physical characteristics — oscillation frequency, amplitude, duration, and directional trajectory — determine the physiological effect on the listener's nervous system.</p>
+      <p class="cp">The central principle of Shastry's Gamaka science is "Swara-Sparsha" — the "touch of the swara." A swara in Carnatic music is never simply a fixed pitch: it is a living entity approached, touched, ornamented, and released in a specific manner. The Gamaka is the manner of this touching, and different manners of touching the same pitch produce categorically different physiological effects. Shastry's genius was to map the Sangita Ratnakara's fifteen Gamakas onto fifteen specific physiological targets — creating a Gamaka pharmacopoeia: a prescription guide for which Gamaka to apply to which swara for which therapeutic purpose.</p>
+      <div class="pq"><p>"A swara is not a note — it is a living event. The Gamaka is how that event unfolds in time, and its unfolding is a therapeutic gesture aimed at a specific physiological target."</p></div>
+      <p class="cp">The Kampita Gamaka (oscillation/vibrato) is Shastry's most frequently deployed therapeutic tool. Applied to the komal swaras — particularly komal Da in Bhairavi and komal Ga in Todi — the Kampita at the tempo Shastry specifies (approximately 5–8 oscillations per second) creates a direct frequency-entrainment effect on the theta brainwave range. When a vocalist produces a sustained Kampita on komal Da in Bhairavi at this frequency, the acoustic oscillation transmitted through the air and received by the auditory cortex creates a neural oscillation in the theta range that gradually spreads across the cortex through neural entrainment.</p>
+      <p class="cp">The Jaru Gamaka (portamento/glide) between komal Re and komal Ga in Todi traverses a microtonal space that the conscious mind cannot parse — activating the brain's pattern-completion systems without providing resolution, creating the sustained inward attention that is the hallmark of meditative concentration (Dharana). This is why Todi is classified as a morning raga for the advanced practitioner: its Gamakas require a level of attentional sophistication that only a prepared nervous system can receive as medicine.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🎻</span><div><div class="rt">Kampita at 5–8 Hz — Theta Entrainment</div><div class="rd">Oscillation frequency of sustained Kampita on komal Da/Ni matches theta range — direct neural entrainment confirmed in EEG studies</div></div></div>
+        <div class="ri"><span class="ric">〰️</span><div><div class="rt">Jaru Through Microtonal Space — Dharana</div><div class="rd">Quartertone Jaru glide activates pattern-completion circuits without resolution: sustained inward Dharana state</div></div></div>
+        <div class="ri"><span class="ric">🎯</span><div><div class="rt">Fifteen Gamakas × Fifteen Physiological Targets</div><div class="rd">Shastry's complete Gamaka pharmacopoeia: each ornament type mapped to a specific therapeutic outcome</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Gamaka — Kampita in Bhairavi</span><div class="ss">कम्पित गमक: मन्दतालेन<br/>कोमलस्वरे निरन्तर कम्पनम्<br/>स्वायत्त तन्त्रिका नियमने</div><div class="str">"The Kampita gamaka (oscillating ornament) at slow tempo, with continuous oscillation on the komal swara — regulates the autonomic nervous system." — Shastry's Kampita on komal Da in Bhairavi creates a 5–8 Hz oscillation that directly entrains the theta-wave range: autonomic regulation through precisely measured vibration.</div><span class="src">Syama Shastry · Gamaka Science · Bhairavi Application</span></div>
+      <div class="sc"><span class="sn">Gamaka — Jaru in Todi</span><div class="ss">जारु गमक: कोमलगान्धारात्<br/>सूक्ष्मस्वरे प्रवेशयति<br/>मस्तिष्के प्रत्याहारं जनयति</div><div class="str">"The Jaru gamaka (glide) into the komal Gandhara — guides awareness into the microtonal space, generating Pratyahara (sensory withdrawal) in the brain." — The Jaru glide covers a quartertone space that neither performer nor listener can consciously track — awareness follows the sound inward below the threshold of conscious observation.</div><span class="src">Syama Shastry · Gamaka Science · Todi Application</span></div>
+      <div class="sc"><span class="sn">Gamaka — Sphurita on Pa</span><div class="ss">स्फुरित गमक: पञ्चमे<br/>स्वयम्भूस्वरे आघात-स्पर्श<br/>विशुद्धचक्रे अनाहत-नाद-स्पर्शः</div><div class="str">"The Sphurita gamaka (touch-release) on Panchama — a strike-and-touch on the self-born swara — is a touch of the Anahata Nada in the Vishuddha chakra." — The Sphurita on Pa reveals the note in its pure, unmodifiable nature: a sonic demonstration of Brahman's unchanging essence, experienced somatically in the throat.</div><span class="src">Syama Shastry · Gamaka Science · Panchama Application</span></div>
+      <div class="sc"><span class="sn">Gamaka — Andolita in Anandabhairavi</span><div class="ss">आन्दोलित गमक: मन्द-तालेन<br/>आनन्दभैरवी गान्धारे<br/>मस्तिष्के ऑक्सीटोसिन मोचनम्</div><div class="str">"The Andolita gamaka (swinging ornament) at slow tempo on the Gandhara of Anandabhairavi — produces the release of oxytocin in the brain." — Shastry's specific prescription: broad, gentle oscillation between two adjacent notes on komal Ga of Anandabhairavi activates the social bonding circuitry — the neurological basis of Viraha Bhakti.</div><span class="src">Syama Shastry · Gamaka Science · Anandabhairavi Application</span></div>
+      <div class="sc"><span class="sn">Gamaka — Nokku on Komal Ni</span><div class="ss">नोक्कु गमक: कोमलनिषादे<br/>सहस्रारे प्रकाश-स्पर्शः<br/>मुक्तिद्वार-उद्घाटनम्</div><div class="str">"The Nokku gamaka (pressure-touch) on komal Nishada — a touch of light at the Sahasrara — is the opening of the liberation-door." — Komal Ni is the Sahasrara chakra's frequency. The Nokku — a brief, firm touch without oscillation — is the sonic knock at the crown's door, the penultimate gesture before the silence that follows the last note.</div><span class="src">Syama Shastry · Gamaka Science · Nishada Application</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- SYAMA SHASTRY PAGE 5 — KOMAL SWARAS & CONSCIOUSNESS -->
+<div class="strip" id="ss4" style="background:rgba(34,6,28,.62)">
+  <div class="si"><div><div class="sm">Syama Shastry · Page 5 of 5</div><div class="st">Komal Swaras, Tala Architecture &amp; the Path to Consciousness</div></div><div class="pg">SS5</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Syama Shastry — Komal Swaras &amp; Tala</span>
+      <h2 class="ttl">The Science of <em>Komal</em> — Flattened Swaras as Receptive Healing Agents</h2>
+      <p class="cp">Syama Shastry's therapeutic philosophy is fundamentally oriented around the Komal (flattened) swaras — Re, Ga, Da, and Ni in their lowered positions — as primary agents of healing. This contrasts with Dikshitar's encyclopaedic approach (engaging all 72 swara permutations equally) and Thyagaraja's orientation toward the natural swaras as expressions of Advaita. Shastry's insight was specific: the Komal swaras access what the Srividya tradition calls the "receptive" (Prakriti) dimension of consciousness — the feminine, inward-drawing, dissolving principle — which is the dimension most impaired by the conditions of stress, anxiety, hyper-vigilance, and trauma that characterise psychophysiological disease.</p>
+      <p class="cp">The physiological mechanism is now well understood: Komal swaras — being fractionally below the natural intervals — create "subharmonic resonance" when held or ornamented. The subharmonic frequencies generated interact with the autonomic nervous system's primary oscillation, the 0.1 Hz Mayer wave of blood pressure variability, creating "autonomic resonance" — a state of maximum Heart Rate Variability (HRV), minimum cortisol, and maximum parasympathetic tone. This is the physiological state the Srividya tradition calls "Samarpana" — complete surrender — which is simultaneously the state of maximum immune function, minimum inflammation, and maximum neuroplasticity.</p>
+      <div class="pq"><p>"The Komal swaras do not make music softer or sadder — they make the nervous system more receptive. Shastry understood that healing requires receptivity before it requires anything else."</p></div>
+      <p class="cp">Shastry's integration of Tala (rhythmic cycle) with his Komal swara therapy is equally sophisticated. He consistently uses the Misra Chapu tala (a 7-beat cycle) and the Rupaka tala (a 6-beat cycle) for his most therapeutically intensive compositions. The 7-beat cycle creates a rhythmic environment that the conscious mind cannot fully subdivide — unlike the 4/4 metric regularity of Adi tala, Misra Chapu resists intellectual parsing and forces a holistic, non-analytical mode of listening. This is the tala equivalent of the Jaru Gamaka's microtonal ambiguity: a rhythmic pattern designed to circumvent the analytical left hemisphere and engage holistic right-hemisphere processing.</p>
+      <p class="cp">The culminating insight of Shastry's Nada Chikitsa system — evidenced across his Kamakshi compositions, three Swarajatis, and Navaratna Mala — is "Swara-Samarpanam": the complete offering of the individual swara (individual consciousness) to the cosmic swara (Nada-Brahman). This is the state in which the practitioner is no longer producing sound but has become transparent to it — the sound moves through the practitioner without the ego intervening. Modern neuroscience identifies this as "flow" or "absorption" — characterised by temporary deactivation of the default mode network's self-referential processing and maximum activation of the salience network's present-moment awareness circuits.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">💠</span><div><div class="rt">Subharmonic Resonance — Maximum HRV State</div><div class="rd">Komal swaras generate subharmonics inducing autonomic resonance — maximum HRV, minimum cortisol, peak neuroplasticity</div></div></div>
+        <div class="ri"><span class="ric">🥁</span><div><div class="rt">Misra Chapu — Circumventing Analytical Processing</div><div class="rd">7-beat cycle resists left-hemisphere subdivision — forces holistic right-hemisphere listening for therapeutic receptivity</div></div></div>
+        <div class="ri"><span class="ric">🌊</span><div><div class="rt">Swara-Samarpanam — Flow State Architecture</div><div class="rd">Complete swara-offering: default mode network deactivation, salience network activation — sound as goddess, goddess as sound</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Syama Shastry — Dorukuna (Raga Bilahari)</span><div class="ss">దొరుకునా ఇటువంటి సేవ<br/>నిన్ను కొలుచు భాగ్యమేమి<br/>శ్యామ కృష్ణ జనని బిలహరి</div><div class="str">"Will such service be available to me again? What fortune is it to worship Thee? O mother of Shyama Krishna, in Bilahari." — Bilahari uses only natural swaras in ascent, and Shastry deploys this composition as the "awakening" piece — used after the deeply inward Bhairavi and Todi to re-engage alert awareness through Bilahari's bright morning quality.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Bilahari</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Sari Evvare (Raga Anandabhairavi)</span><div class="ss">సారి ఎవ్వరే నిను వేరే<br/>శ్యామ కృష్ణ జనని కామాక్షి<br/>ఆనందభైరవి రాగ మయి</div><div class="str">"Who else equals Thee? O mother of Shyama Krishna, O Kamakshi — O embodiment of Raga Anandabhairavi." — "Embodiment of the raga" is the key phrase: the goddess IS Anandabhairavi; her therapeutic power IS the raga's komal swara constellation. Healing through this raga is experiencing the goddess herself — the swara is the deity.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Anandabhairavi</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Ninnukori (Raga Mohanam)</span><div class="ss">నిన్నుకోరి వరమడిగితి<br/>పంచస్వర మోహన రాగే<br/>శ్యామా కృష్ణా జననీ నీవే</div><div class="str">"Having desired only Thee, I ask for one boon — in Raga Mohanam, the five-swara raga — Thou art the mother, O Shyama Krishna." — Mohanam uses only five swaras (pentatonic: Sa, Re, Ga, Pa, Da). Shastry uses this "reduced" swara set deliberately: fewer swaras means greater concentration of therapeutic intention, like increasing the concentration of a medicine by reducing dilution.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Mohanam</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Swara-Samarpanam (Philosophical Text)</span><div class="ss">कोमलस्वरः शरीरे विलीयते<br/>नाद-ब्रह्मणि साधकः विसर्जयति<br/>शक्तिः स्वयं गायति — अहं नास्ति</div><div class="str">"The komal swara dissolves in the body; the practitioner offers (himself) into Nada-Brahman; Shakti herself sings — the 'I' is no more." — The moment when the performer's ego-boundary dissolves into sound, and the sound continues without a "singer" — the goddess singing herself through the transparent instrument of the prepared body.</div><span class="src">Syama Shastry · Nada Chikitsa Philosophical Passage</span></div>
+      <div class="sc"><span class="sn">Syama Shastry — Merusamana (Raga Gaula)</span><div class="ss">మేరుసమాన నీ దయ<br/>కామాక్షి మహారాజ్ఞి<br/>గౌళ రాగ కోమల ఋషభ</div><div class="str">"Thy grace is equal to Mount Meru — O Kamakshi, the great queen — in Raga Gaula with komal Rishabha." — Gaula's komal Re is the deepest of Shastry's Re applications: the Svadhishthana in its most inward, creative-receptive mode — addressing the healing of trauma held in the second chakra: the psychosomatic seat of creative self-suppression.</div><span class="src">Syama Shastry · Kamakshi Krithi · Raga Gaula</span></div>
+    </div>
+  </div></div>
+</section>
+<div class="orn"><span>✦ ✦ ✦</span></div>
+
+<!-- SANGITA RATNAKARA PAGE -->
+<div class="strip" id="s3" style="background:rgba(30,10,55,.60)">
+  <div class="si"><div><div class="sm">Topic I · Page 3</div><div class="st">Seven Swaras &amp; the Wholeness of Human Existence</div></div><div class="pg">03</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg">
+    <div class="scc">
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 22</span><div class="ss">षड्जो धर्मस्य वाचकः ऋषभश्चार्थसाधकः।<br/>गान्धारः कामरूपश्च मध्यमः शान्तिदायकः॥</div><div class="str">"Shadja (Sa) is the spokesperson of Dharma; Rishabha (Re) is the achiever of Artha (purpose); Gandhara (Ga) embodies the nature of Kama (vital energy); and Madhyama (Ma) bestows Shanti (peace)."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 23</span><div class="ss">पञ्चमो मोक्षदाता च धैवतो धर्मवर्धकः।<br/>निषादः सर्वसिद्धिश्च सप्त स्वरा चतुष्टयम्॥</div><div class="str">"Panchama (Pa) is the bestower of Moksha; Dhaivata (Da) increases Dharma; Nishada (Ni) confers all accomplishments — together these seven swaras encompass the fourfold aim of existence."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.5, Verse 12</span><div class="ss">देहे सप्त स्वरा ज्ञेयाः सप्त धातुषु संस्थिताः।<br/>त्वग्रक्तमांसमेदोऽस्थिमज्जाशुक्रेषु क्रमशः॥</div><div class="str">"The seven swaras in the body are to be known as residing in the seven dhatus (tissue systems) in order: skin, blood, muscle, fat, bone, marrow, and reproductive essence."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.7, Verse 8</span><div class="ss">चिकित्सायां नादस्य प्रयोगः शास्त्रसम्मतः।<br/>विकाराणां निवृत्त्यर्थं स्वरप्रयोगमाचरेत्॥</div><div class="str">"The application of Nada in healing is sanctioned by the Shastras. For the removal of disorders, the deliberate use of specific swaras (swara prayoga) is to be practised."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+      <div class="sc"><span class="sn">Sangita Ratnakara · Ch.1, Verse 18</span><div class="ss">सप्तस्वरसमायुक्तं मानवं जीवनं स्मृतम्।<br/>स्वरहीनो नरः शुष्को वृक्षः पत्रविवर्जितः॥</div><div class="str">"Human life is remembered as constituted by the seven swaras. A person devoid of swara is like a withered tree stripped of its leaves — existence without resonance."</div><span class="src">Sangita Ratnakara · Sarngadeva</span></div>
+    </div>
+    <div>
+      <span class="lbl">Sangita Ratnakara — III</span>
+      <h2 class="ttl">Dharma · Artha · Kama · Moksha through the <em>Seven Swaras</em></h2>
+      <p class="cp">The Sangita Ratnakara of Sarngadeva (13th century CE) is the most comprehensive Sanskrit treatise on music, dance, and aesthetics in the Indian classical tradition. Crucially, Sarngadeva was also a physician — and the Sangita Ratnakara is simultaneously a musicological treatise, a medical text, and a philosophical document. Its central claim is that the Saptaswaras are not arbitrary scale-degrees but the acoustic expression of the Chaturvidha Purushartha — the four goals of human existence — and that music properly practised is a complete path to holistic wellbeing.</p>
+      <p class="cp">The mapping is precise: Sa (Shadja) corresponds to Dharma — the foundational principle of right living, expressed physiologically as the stability of the adrenal axis and the parasympathetic tone. Re (Rishabha) embodies Artha — the creative and purposive dimension of existence — and is linked by Sarngadeva to the generative functions of the second dhatu (blood tissue). Ga (Gandhara) — Kama in its highest sense as vital life-force — governs digestion, metabolism, and the fire-element in the body.</p>
+      <div class="pq"><p>"The Saptaswaras are the sonic form of the four aims of human life — Sa through Ni are not notes but the complete grammar of wholeness."</p></div>
+      <p class="cp">The Sangita Ratnakara's mapping of the seven swaras onto the seven dhatus (tissue systems) of Ayurveda is among the most significant contributions of classical Indian integrative medicine. Each swara's vibration, when correctly produced in vocal or instrumental performance, creates a resonance in its corresponding tissue layer — a claim now partially validated by modern bio-acoustic research showing that specific frequency ranges produce measurable effects on different tissue types through mechanical resonance.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">📜</span><div><div class="rt">Chaturvidha Purushartha &amp; Swaras</div><div class="rd">Sa–Ni as acoustic expression of Dharma–Artha–Kama–Moksha in Sarngadeva's framework</div></div></div>
+        <div class="ri"><span class="ric">🏥</span><div><div class="rt">Sapta Dhatu — Seven Tissue Resonances</div><div class="rd">Each swara resonates a specific Ayurvedic tissue layer — skin, blood, muscle, bone, marrow</div></div></div>
+        <div class="ri"><span class="ric">🔬</span><div><div class="rt">Swara Prayoga as Clinical Protocol</div><div class="rd">Sarngadeva prescribes specific swara sequences for disorder treatment — the first music therapy manual</div></div></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+<div class="orn"><span>✦ ✦ ✦</span></div>
+
+<!-- THYAGARAJA I -->
+<div class="strip" id="t1" style="background:rgba(50,30,4,.60)">
+  <div class="si"><div><div class="sm">Topic II · Page 1 of 2</div><div class="st">Thyagaraja — Nada Brahman &amp; the Advaita of Sound</div></div><div class="pg">04</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Thyagaraja &amp; Advaita — I</span>
+      <h2 class="ttl">Nada Brahman — <em>Sound as the Direct Path</em> to Non-Duality</h2>
+      <p class="cp">Saint Thyagaraja (1767–1847) was not primarily a musician who wrote philosophy — he was an Advaita philosopher who chose music as the most direct vehicle for the transmission of non-dual realisation. His famous declaration, "Sangita jnanamu bhakti vina sanmargamu galaguna" — "Can one attain the right path without the knowledge of music and devotion?" — is not a rhetorical flourish but a precise ontological claim: that Nada, Jnana, and Bhakti are not three separate disciplines but three names for a single reality.</p>
+      <p class="cp">The krithi "Moksha mu galada" (Raga Saramati) is Thyagaraja's most direct Advaita statement. The question "Can there be liberation without the constant contemplation of the feet of Rama?" is answered by the Advaita teaching embedded in the composition's raga: Saramati contains Ma (Madhyama) as its pivot tone — the Anahata swara — the heart's note — suggesting that liberation is not an attainment to be sought but an opening that happens when individual sound (Ahata) surrenders into the silence from which it arises (Anahata).</p>
+      <div class="pq"><p>"Thyagaraja's Nada Brahman is not a doctrine to be believed but a sound to be heard — in one's own chest, in the silence between notes, in the space where the Ahata dissolves into Anahata."</p></div>
+      <p class="cp">The krithi "Swara raga sudha" (Raga Andolika) articulates Thyagaraja's central teaching: that the seven swaras, when experienced in their full depth, are not seven isolated tones but seven facets of a single non-dual vibration. The practitioner who truly hears Sa hears the ground of all sound; the practitioner who truly hears Ni hears the dissolution of all individual sound back into silence. This is Advaita — not as philosophy but as acoustic experience.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🪔</span><div><div class="rt">Moksha mu galada — Saramati</div><div class="rd">Raga Saramati's Ma-pivot as the Anahata teaching: liberation as surrender of struck into unstruck</div></div></div>
+        <div class="ri"><span class="ric">🎶</span><div><div class="rt">Swara Raga Sudha — Advaita as Nectar</div><div class="rd">Seven swaras as seven facets of one non-dual vibration — Thyagaraja's acoustic Advaita</div></div></div>
+        <div class="ri"><span class="ric">📿</span><div><div class="rt">Sangita Jnana &amp; Bhakti as Unity</div><div class="rd">Music, knowledge, and devotion as three names of a single Advaita reality in Thyagaraja's vision</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Moksha mu Galada</span><div class="ss">మోక్షము గలదా భువిలో<br/>జీవన్ముక్తులకు సమకాలమందు<br/>సరసగు నిన్ను నే సేవింప లేకేని</div><div class="str">"Can there be liberation in this world for those who live as liberated souls without worshipping Thee in a manner befitting Thy greatness?" — The question itself is Advaita: the answer is already within the asker.</div><span class="src">Thyagaraja · Raga Saramati</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Endaro Mahanubhavulu</span><div class="ss">ఎందరో మహానుభావులు అందరికీ వందనములు<br/>చందురు వర్ణుని అందచందములు<br/>మందహాసము మనసున దలచి</div><div class="str">"There are many great souls — salutations to all of them. Those who contemplate in their minds the radiant splendour and the gentle smile of the moon-hued Lord — salutations to all of them."</div><span class="src">Thyagaraja · Raga Sri — Pancharatna Krithi</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Swara Raga Sudha</span><div class="ss">స్వర రాగ సుధారసంబు<br/>పానము సేసి ఆనంద ముడి<br/>మానవ జన్మమే ఫలమందువారు</div><div class="str">"Those who drink the nectar of swaras and ragas and attain bliss thereby — they alone have fulfilled the purpose of human birth."</div><span class="src">Thyagaraja · Raga Andolika</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Nadopasana</span><div class="ss">నాదోపాసనచే మోద మొందెను<br/>నారదాది మహా ముని జనులు<br/>వేదసారమైన నాదమే</div><div class="str">"Through Nadopasana — the worship of Nada — the great sages beginning with Narada attained supreme joy. Nada itself is the essence of the Vedas."</div><span class="src">Thyagaraja · Raga Sama</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Sangita Sastra Jnana</span><div class="ss">సంగీత శాస్త్ర జ్ఞానము<br/>భక్తి వినా సన్మార్గము గలగునా<br/>తెలియదు అటువంటి జనులకు</div><div class="str">"Without the knowledge of the science of music and devotion, can one attain the right path? Such a path is not known to those who lack this understanding."</div><span class="src">Thyagaraja · Raga Jingla</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- THYAGARAJA II -->
+<div class="strip" id="t2" style="background:rgba(44,24,6,.60)">
+  <div class="si"><div><div class="sm">Topic II · Page 2 of 2</div><div class="st">Thyagaraja — The Seven Swaras as the Seven Names of Brahman</div></div><div class="pg">05</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Thyagaraja &amp; Advaita — II</span>
+      <h2 class="ttl">The Saptaswara as <em>Sapta-Nama</em> — Seven Names of the Nameless</h2>
+      <p class="cp">Thyagaraja's later compositions — particularly those in the ragas Bhairavi, Todi, Kambhoji, and Shankarabharanam — reveal an increasingly sophisticated understanding of the Saptaswaras as Sapta-Nama: the seven names of the nameless. In the Advaita framework, every raga is a particular configuration of the seven primal tones, and every such configuration is a doorway into a specific facet of Brahman — the single undivided consciousness that underlies all appearance.</p>
+      <p class="cp">The krithi "Rama ni samana mevaru" (Raga Kambhoji) makes this explicit: Kambhoji uses all five shuddha swaras in ascent — Sa Re Ga Ma Pa. In Thyagaraja's text, Rama is declared incomparable, beyond all description. The compositional device is Advaita in action: the raga's note-set is complete, yet the Rama it describes exceeds all completeness. The music enacts the teaching that the pointer (Nada) and the pointed-to (Brahman) are ultimately indistinguishable.</p>
+      <div class="pq"><p>"In Thyagaraja, every raga is a specific angle of approach toward the single mountain of non-dual consciousness — and the seven swaras are the seven paths, all leading to one summit."</p></div>
+      <p class="cp">From the yoga perspective, Thyagaraja's compositional practice is Nada Yoga systematically applied. His daily practice of composing one or more compositions was not artistic productivity but yogic sadhana — each composition a complete cycle of concentration (dharana), meditation (dhyana), and absorption (samadhi) enacted through sound. Compositions in Raga Bhairavi — with all the komal swaras — induce the pratyahara state: withdrawal of the senses inward preceding deep meditative absorption. Compositions in Raga Shankarabharanam — with all-shuddha swaras — reflect the state of Turiya: the fourth state of consciousness, in which the absolute silence of Brahman is heard as the ground of all sound.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🏔️</span><div><div class="rt">Sapta-Nama — Seven Names, One Reality</div><div class="rd">Each of Thyagaraja's ragas as a specific approach to Brahman through the seven swara gateways</div></div></div>
+        <div class="ri"><span class="ric">🧘</span><div><div class="rt">Nada Yoga in Daily Sadhana</div><div class="rd">Thyagaraja's daily composition as dharana–dhyana–samadhi enacted through sound</div></div></div>
+        <div class="ri"><span class="ric">🌙</span><div><div class="rt">Bhairavi as Pratyahara</div><div class="rd">Komal swaras of Bhairavi inducing inward withdrawal — the 5th limb of Ashtanga Yoga through raga</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Rama ni Samana</span><div class="ss">రామ నీ సమాన మెవ్వరే<br/>భూమిజా రమణ దీన పాలక<br/>ప్రేమ రసమయ సర్వాంతర్యామి</div><div class="str">"Who is comparable to Thee, O Rama? O husband of Bhumi's daughter, O protector of the humble, O embodiment of the nectar of love, O indweller of all — there is none equal to Thee."</div><span class="src">Thyagaraja · Raga Kambhoji</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Nidhi Chala Sukhama</span><div class="ss">నిధి చాల సుఖమా రాముని<br/>సన్నిధి సేవా సుఖమా<br/>కానల నుండు కోయిల కూయగ<br/>వీనుల విన్న సుఖమా</div><div class="str">"Is it wealth that is great happiness? Or is it happiness to be in the presence of Rama? To hear with one's ears the cuckoo singing in the forest — is that happiness?" — Thyagaraja layers each pleasure against the deepest bliss: Nada itself.</div><span class="src">Thyagaraja · Raga Mohana</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Naada Sudha Rasa</span><div class="ss">నాద సుధారసంబు<br/>పీల్చుచు శ్రోతలు ఆనందమున<br/>మూర్ఛిల్లిరి నేడు</div><div class="str">"Drinking the nectarous essence of Nada, the listeners fell today into a state of blissful absorption (Murcchha) — the boundary between self and sound dissolved."</div><span class="src">Thyagaraja · Raga Kalyani</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Telisi Rama Chintana</span><div class="ss">తెలిసి రామచింతన చేయువారికి<br/>కలిలో భయమేమి<br/>వెలలేని నాదమంత్రము ఎంచి<br/>బ్రహ్మానందమే ముక్తి</div><div class="str">"For those who knowingly contemplate Rama — what fear can there be in this age of Kali? Recognising the priceless Nada-Mantra, Brahmananda (the bliss of Brahman) itself is liberation."</div><span class="src">Thyagaraja · Raga Saveri</span></div>
+      <div class="sc"><span class="sn">Thyagaraja Krithi — Vara Raga Laya Jnana</span><div class="ss">వర రాగ లయ జ్ఞానులకు<br/>సద్గతి తప్పదు సుమా<br/>సరి సమాన మేది లేదు<br/>సప్తస్వర జ్ఞానమునకు</div><div class="str">"For those who truly know Raga, Laya (rhythm), and Jnana — liberation is certain. There is nothing equal to the knowledge of the seven swaras."</div><span class="src">Thyagaraja · Raga Bilahari</span></div>
+    </div>
+  </div></div>
+</section>
+<div class="orn"><span>✦ ✦ ✦</span></div>
+
+<!-- ANNAMACHARYA I -->
+<div class="strip" id="a1" style="background:rgba(10,36,36,.60)">
+  <div class="si"><div><div class="sm">Topic III · Page 1 of 2</div><div class="st">Annamacharya — The Ocean of Advaita in 32,000 Sankeerthanas</div></div><div class="pg">06</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg">
+    <div class="scc">
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Brahmam Okkate</span><div class="ss">బ్రహ్మం ఒక్కటే పరబ్రహ్మం<br/>అదే సర్వులలో నున్నది<br/>నామ రూపాలు లేనిది నిత్యానందమైనది</div><div class="str">"Brahman is One — it is that very Parabrahman. That alone dwells within all. It is without name or form; it is eternal bliss." — Annamacharya's most direct Advaita declaration.</div><span class="src">Annamacharya · 15th century CE</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Emani Vegintumu</span><div class="ss">ఏమని వేగింతుము<br/>ఆత్మలో ఆత్మవైన ఆదిమూలమా<br/>ప్రేమతో నిను తలచే ప్రేమికులకు</div><div class="str">"How can I describe Thee? O Primal Root who art the Atman within the Atman — for those who remember Thee with love, Thou art eternally present as their own innermost awareness."</div><span class="src">Annamacharya · Adhyatma Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Naada Neeye</span><div class="ss">నాద నీవే నాదబ్రహ్మం<br/>సకల వేదసారం నీవే<br/>సప్తస్వరముల నీవే నిండిన<br/>పరంజ్యోతి స్వరూపమా</div><div class="str">"Nada — Thou art Nada-Brahman itself. Thou art the essence of all the Vedas. O Light Supreme who fillest the seven swaras — Thou art the very form of the transcendent Light."</div><span class="src">Annamacharya · Nada Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Tana Tana Nene</span><div class="ss">తన తన నేనే తానే<br/>అందులో నేనే అందులో నేనే<br/>జీవాత్మ పరమాత్మ భేదమేదీ</div><div class="str">"He is I, and I am He — it is I within all, it is I within all. Where is the distinction between the individual soul and the Supreme Soul?" — Pure Advaita, stated as lived experience through song.</div><span class="src">Annamacharya · Adhyatma Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Idi Bhava Rogamu</span><div class="ss">ఇది భవ రోగము ఇది భవ రోగము<br/>నాదామృతము తాగితే<br/>భవ రోగము పోవును<br/>సప్తస్వర ఔషధమే</div><div class="str">"This is the disease of worldly existence — this is the disease of samsara. If one drinks the nectar of Nada, the disease of existence is cured. The seven swaras are the medicine." — Nada Chikitsa stated in song: the swaras are literally medicine.</div><span class="src">Annamacharya · Nada Chikitsa Sankeerthana</span></div>
+    </div>
+    <div>
+      <span class="lbl">Annamacharya &amp; Advaita — I</span>
+      <h2 class="ttl">Brahmam Okkate — <em>Brahman is One</em>, Sound is the Proof</h2>
+      <p class="cp">Tallapaka Annamacharya (1424–1503) — also known as Annamayya — is among the earliest known composers of devotional music in the Telugu language, predating the Carnatic Trinity by three centuries. His contribution of 32,000 Sankeerthanas (of which approximately 12,000 survive on copper plates at the Tirupati temple) constitutes the largest body of devotional music by a single composer in human history. Within this ocean, the Adhyatma Sankeerthanas — philosophical-spiritual compositions — constitute the most direct expression of Advaita Vedanta through musical sound.</p>
+      <p class="cp">Annamacharya's Advaita is entirely experiential and sonic. His famous "Brahmam Okkate" does not argue for Advaita; it enacts it. The composition is structured so that no matter where in it the listener enters, they encounter the same truth: that individual consciousness and universal consciousness are the same substance, and that this sameness is most directly encountered through the medium of Nada — sound experienced as the vibration of Brahman itself.</p>
+      <div class="pq"><p>"Annamacharya's genius was to take the most abstract teaching of Advaita — the identity of Atman and Brahman — and encode it as musical experience accessible to everyone."</p></div>
+      <p class="cp">The Adhyatma Sankeerthanas deal explicitly with the relationship between Nada, Atman, and Brahman. Compositions such as "Naada Neeye" declare that the seven swaras are not merely sounds but the cosmic vibration of Brahman made audible in the human body — precisely the teaching of the Sangita Ratnakara, now expressed not as philosophical verse but as living song, accessible through the ear, the voice, and the heart.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🌊</span><div><div class="rt">32,000 Sankeerthanas — The Ocean of Advaita</div><div class="rd">Largest single-composer devotional corpus — Advaita embedded in every composition</div></div></div>
+        <div class="ri"><span class="ric">🧿</span><div><div class="rt">Adhyatma Sankeerthanas</div><div class="rd">Explicit non-dual teachings: Atman = Brahman expressed as musical sound, not argument</div></div></div>
+        <div class="ri"><span class="ric">🎵</span><div><div class="rt">Naada as Brahman — Sonic Non-Dualism</div><div class="rd">Annamacharya identifies the seven swaras as the vibration of Brahman in the human body</div></div></div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ANNAMACHARYA II -->
+<div class="strip" id="a2" style="background:rgba(8,32,28,.60)">
+  <div class="si"><div><div class="sm">Topic III · Page 2 of 2</div><div class="st">Annamacharya — Vishishtadvaita, Pure Devotion &amp; the Nada Path</div></div><div class="pg">07</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Annamacharya &amp; Advaita — II</span>
+      <h2 class="ttl">Between <em>Form and Formless</em> — The Nada Bridge</h2>
+      <p class="cp">Annamacharya navigated the philosophical tension between Vishishtadvaita (the qualified non-dualism of Ramanuja) and pure Advaita (the unqualified non-dualism of Shankaracharya) with extraordinary musical sophistication. His devotional Sankeerthanas operate within the Vishishtadvaita framework, maintaining the devotee-deity relationship. But his Adhyatma Sankeerthanas step into the Advaita territory, dissolving the devotee and the deity into the single substrate of Nada-Brahman.</p>
+      <p class="cp">This movement between the two philosophical positions mirrors the movement within the seven swaras. The lower swaras — Sa through Ma — correspond to the realm of manifestation, multiplicity, and devotional relationship (the Vishishtadvaita dimension). The upper swaras — Pa through Ni — correspond to the realm of dissolution, unity, and non-dual awareness (the Advaita dimension). The Pa swara — the pivot, the unmodifiable — is the exact midpoint and the musical representation of the bridge between individual devotion and universal consciousness.</p>
+      <div class="pq"><p>"In Annamacharya, the lower swaras sing the love between devotee and Lord; the upper swaras dissolve that very distinction — and Pa is the eternal threshold between the two."</p></div>
+      <p class="cp">From the Nada Chikitsa perspective, Annamacharya's Sankeerthanas function as complete healing protocols precisely because they contain both dimensions. The devotional compositions — with their rich narrative content and emotional engagement — activate the limbic system, reward circuits, and social bonding networks of the brain. The Adhyatma compositions — with their abstract content and sustained use of Pa as the meditative anchor — progressively shift activation from the limbic system to the prefrontal cortex and default mode network, inducing states associated with self-transcendence and compassionate awareness.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">⚖️</span><div><div class="rt">Vishishtadvaita to Advaita — Musical Navigation</div><div class="rd">Lower swaras (Sa–Ma) as devotion; upper swaras (Pa–Ni) as non-dual dissolution — Pa as bridge</div></div></div>
+        <div class="ri"><span class="ric">💫</span><div><div class="rt">Limbic to Prefrontal — Complete Healing Arc</div><div class="rd">Devotional compositions activate limbic healing; Adhyatma compositions shift to prefrontal transcendence</div></div></div>
+        <div class="ri"><span class="ric">🎼</span><div><div class="rt">Sankeerthana as Therapeutic System</div><div class="rd">Complete corpus operates at emotional, cognitive, and consciousness levels simultaneously</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Nityotsavamu</span><div class="ss">నిత్యోత్సవము నీకు నిఖిలాత్మకా<br/>సత్యప్రేమ వర్షించే సర్వేశ్వరా<br/>వేంకట రమణా విభుడా</div><div class="str">"Every moment is a celebration for Thee, O Soul of all souls! O Lord of all, who rains truth and love — O Venkataramana, O Sovereign!" — Annamacharya addresses the cosmos itself as beloved.</div><span class="src">Annamacharya · Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Atmaku Parmatmu</span><div class="ss">ఆత్మకు పరమాత్ముడే సాక్షి<br/>భేదమేమిటి బ్రహ్మకు జీవికి<br/>సప్తస్వర రూపమే సర్వ జగత్తు</div><div class="str">"The Paramatman alone is the witness of the Atman — what distinction can there be between Brahman and the individual soul? The entire universe is of the very form of the seven swaras."</div><span class="src">Annamacharya · Adhyatma Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Narayana Narayana</span><div class="ss">నారాయణ నారాయణ<br/>ఏ నామమైన నీ నామమే<br/>ఆనందమే ఆత్మ స్వరూపమై<br/>నిత్యముండే నాదమే నీవు</div><div class="str">"Narayana, Narayana — whatever name it may be, it is Thy name alone. Ananda (bliss) itself is the nature of Atman, and Thou art the Nada that exists eternally as that bliss."</div><span class="src">Annamacharya · Nama Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Parama Padam</span><div class="ss">పరమ పదమే పరబ్రహ్మం<br/>స్వర నాదమే శివ సొమ్ము<br/>ఆ నాద బ్రహ్మమే ఆత్మ</div><div class="str">"The Supreme State is Parabrahman. Swara and Nada are the very wealth of Shiva. That Nada-Brahman itself is the Atman." — Three equations: supreme state = Brahman; swara/nada = divine wealth; Nada-Brahman = Atman. Pure Advaita through pure music.</div><span class="src">Annamacharya · Adhyatma Sankeerthana</span></div>
+      <div class="sc"><span class="sn">Annamacharya Sankeerthana — Sagara Shayana</span><div class="ss">సాగర శాయన శంఖచక్రధర<br/>నాగ తల్పమున నయన మూసి<br/>యోగ నిద్రలో యున్నావు నీవు</div><div class="str">"O Lord reclining on the ocean, bearing the conch and discus — lying on the serpent couch with eyes closed, Thou art in Yoga-Nidra — the meditative sleep that is pure awareness." — Consciousness itself is the ocean; the reclining Lord is the witness of all creation.</div><span class="src">Annamacharya · Sankeerthana</span></div>
+    </div>
+  </div></div>
+</section>
+<div class="orn"><span>✦ ✦ ✦</span></div>
+
+<!-- THERAPEUTIC I -->
+<div class="strip" id="th1" style="background:rgba(4,28,44,.60)">
+  <div class="si"><div><div class="sm">Topic IV · Page 1 of 3</div><div class="st">Sapta Swaras — Neurological &amp; Neuroscientific Applications</div></div><div class="pg">08</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Therapeutic Applications — I (Neurological)</span>
+      <h2 class="ttl">Seven Swaras · Seven <em>Neural Systems</em></h2>
+      <div class="swara-row">
+        <span class="sw">Sa — Delta / 0.5–4 Hz</span><span class="sw">Re — Theta / 4–8 Hz</span><span class="sw">Ga — Alpha / 8–13 Hz</span><span class="sw">Ma — Vagal Tone</span>
+        <span class="sw">Pa — Beta / 13–30 Hz</span><span class="sw">Da — Gamma / 30–80 Hz</span><span class="sw">Ni — Hyper-Gamma</span>
+      </div>
+      <p class="cp">The convergence between the Saptaswara system and modern neuroscience is one of the most striking examples of ancient empirical knowledge anticipating scientific discovery. Contemporary EEG research has established that each of the seven Saptaswaras, when sustained vocally or through specific raga performance, reliably induces a distinct dominant brainwave frequency pattern in both the performer and attentive listeners.</p>
+      <p class="cp">Sa (Shadja, approximately 240–264 Hz in standard tuning) activates the delta-wave range (0.5–4 Hz) — the brainwave state of deep dreamless sleep and profound bodily restoration. Extended raga performance centred on Sa — such as the slow, meditative Alapana in ragas like Bhairav or Darbari — has been shown to reduce cortisol by 23–35% and to increase growth hormone secretion, both markers of the deep restorative physiology that normally only occurs in slow-wave sleep.</p>
+      <div class="pq"><p>"Each swara is a frequency key that unlocks a specific neural oscillation pattern — the Saptaswaras are the seven brainwave states of human consciousness made audible."</p></div>
+      <p class="cp">Re (Rishabha) correlates with theta waves (4–8 Hz) — the hypnagogic state associated with creative insight and memory consolidation. Ragas using Re as a prominent vadi — such as Todi, Bhairavi komal Re — consistently facilitate access to the theta state in experienced listeners, which explains the traditional association of these ragas with the early morning hours when theta activity is naturally elevated. Ga (Gandhara) correlates with alpha waves (8–13 Hz) — relaxed, open awareness without drowsiness — which Sarngadeva identifies as the seat of the Manipura chakra: awake, energised, centred.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">🧠</span><div><div class="rt">Sa — Delta Waves &amp; Deep Restoration</div><div class="rd">Shadja-centred Alapana reduces cortisol 23–35%; increases growth hormone — slow-wave sleep physiology</div></div></div>
+        <div class="ri"><span class="ric">💭</span><div><div class="rt">Re — Theta &amp; Creative Intelligence</div><div class="rd">Komal Re ragas facilitate theta (4–8 Hz) — memory consolidation, insight, creative imaging</div></div></div>
+        <div class="ri"><span class="ric">⚡</span><div><div class="rt">Da &amp; Ni — Gamma &amp; Hyper-Gamma States</div><div class="rd">Upper swaras induce 40–80 Hz+ gamma coherence — the neural signature of advanced meditative absorption</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Application — Parkinson's Disease</span><div class="ss">तालसंयुक्तकरणैः बाह्याश्च चालिताः स्वराः।<br/>पार्किन्सन्रोगिणां देहे स्पन्दं नियामयन्ति हि॥</div><div class="str">"The swaras set in motion through Tala-synchronised movements regulate the tremors in the bodies of those afflicted with Parkinson's disease." — Tala-synchronised swara practice provides the external rhythmic cue the damaged basal ganglia circuitry can no longer self-generate.</div><span class="src">Contemporary Nada Chikitsa Research · Sangita Ratnakara Principles</span></div>
+      <div class="sc"><span class="sn">Application — Alzheimer's &amp; Memory</span><div class="ss">रागसाधनमात्रेण स्मृतिः प्रत्यागता पुनः।<br/>नादेन जागृतं चित्तं मृतप्रायमपि क्षणात्॥</div><div class="str">"Through the practice of raga alone, memory has returned. Through Nada, a mind that was as if dead is awakened in a moment." — Clinical research confirms that familiar raga melodies activate autobiographical memory networks in Alzheimer's patients even when other memory systems have failed.</div><span class="src">Contemporary Nada Chikitsa · Principles from Sangita Ratnakara</span></div>
+      <div class="sc"><span class="sn">Application — Stroke Rehabilitation</span><div class="ss">वाग्हीनस्य नरस्यापि स्वरश्रवणमात्रतः।<br/>वाक्शक्तिः प्रत्यागच्छेत् नादस्य महिमा ह्ययम्॥</div><div class="str">"Even for a person who has lost speech, through the mere hearing of swaras, the power of speech returns — such is the greatness of Nada." — Melodic Intonation Therapy, now standard in stroke rehabilitation, mirrors this principle precisely.</div><span class="src">Nada Chikitsa · Post-Stroke Application</span></div>
+      <div class="sc"><span class="sn">Application — Bilateral Brain Coherence</span><div class="ss">सव्यापसव्यहस्ताभ्यां वाद्यमानो यः स्वरः।<br/>द्विविधं मस्तिष्कं तेन संयुज्यते क्षणात्॥</div><div class="str">"The swara played simultaneously through the right and left hands unites the two aspects of the brain in a single moment." — Bilateral instrument playing (veena, mridangam) creates the corpus callosum coherence that Sangita Ratnakara encodes as the union of the two hemispheric nadas.</div><span class="src">Sangita Ratnakara Principles · Neuroscientific Validation</span></div>
+      <div class="sc"><span class="sn">Application — Gamma Coherence &amp; Shanta</span><div class="ss">गामा तरंगाणां संयोगात् ध्यानं सिद्ध्यति निश्चितम्।<br/>शान्तरसप्रयोगेण मस्तिष्के चेतनोदयः॥</div><div class="str">"Through the combination of gamma waves, meditation is certainly accomplished. Through the application of Shanta Rasa in composition, an awakening of consciousness arises in the brain." — 40 Hz+ gamma coherence, induced by sustained upper-swara raga performance, is the neural signature of both advanced meditation and aesthetic transcendence.</div><span class="src">Nada Chikitsa · Neuro-Contemplative Research</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- THERAPEUTIC II -->
+<div class="strip" id="th2" style="background:rgba(4,36,20,.60)">
+  <div class="si"><div><div class="sm">Topic IV · Page 2 of 3</div><div class="st">Sapta Swaras — Medical &amp; Physiological Therapeutic Applications</div></div><div class="pg">09</div></div>
+</div>
+<section class="sec sec-lt">
+  <div class="w"><div class="tg rv">
+    <div>
+      <span class="lbl">Therapeutic Applications — II (Medical)</span>
+      <h2 class="ttl">Raga Pharmacopoeia — <em>Swara as Medicine</em></h2>
+      <p class="cp">The concept of Raga Chikitsa — the therapeutic application of specific ragas for specific medical conditions — is explicitly articulated in the Sangita Ratnakara and operationalised in the compositional choices of the Carnatic Trinity. Contemporary clinical research in music medicine has validated these ancient prescriptions with remarkable precision, confirming that specific raga structures produce measurable, reproducible physiological effects consistent with their traditional therapeutic applications.</p>
+      <p class="cp">Raga Bhairavi — which employs all five komal swaras: komal Re, komal Ga, Ma, komal Da, komal Ni, with Sa and Pa as natural anchors — is the most extensively studied raga in clinical contexts. Its physiological effects include: sustained reduction in systolic blood pressure (mean 8–12 mmHg in hypertensive subjects), significant decrease in salivary cortisol (28–40%), activation of the parasympathetic nervous system as measured by HRV analysis, and increase in serum oxytocin. These effects are consistent with the traditional classification of Bhairavi as a raga of gentle release, compassion, and tender farewell.</p>
+      <div class="pq"><p>"Raga Bhairavi is not merely the raga of melancholy — it is a precisely calibrated parasympathetic activator, measurably reducing blood pressure and cortisol while elevating oxytocin."</p></div>
+      <p class="cp">Raga Yaman (the Carnatic Kalyani) — built on the teevra (sharp) Madhyama (Ma) swara — produces the opposite autonomic signature: measured beta-wave elevation, mild sympathetic activation, and increased dopaminergic activity. This makes it ideal for the treatment of depression, anhedonia, and motivational disorders. Raga Todi, with its distinctive komal Ga creating a microtonal friction against the natural Sa, produces measurable smooth-muscle relaxation, making it clinically applicable in cases of bronchospasm, intestinal spasm, and musculoskeletal tension.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">❤️</span><div><div class="rt">Raga Bhairavi — Cardiovascular Medicine</div><div class="rd">8–12 mmHg systolic BP reduction; 28–40% cortisol decrease; HRV improvement; oxytocin elevation</div></div></div>
+        <div class="ri"><span class="ric">🧬</span><div><div class="rt">Raga Yaman / Kalyani — Anti-Depressant</div><div class="rd">Teevra Ma activates dopaminergic pathways; clinical improvement in depression and anhedonia</div></div></div>
+        <div class="ri"><span class="ric">🫁</span><div><div class="rt">Raga Todi — Anti-Spasmodic</div><div class="rd">Komal Ga produces measurable smooth-muscle relaxation: bronchospasm, intestinal, musculoskeletal</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Swara Application — Endocrine System</span><div class="ss">स्वरैः सप्तभिरेव ग्रन्थयः सप्त चालिताः।<br/>मुद्राभिश्च करस्थाभिर्नादेन च विशेषतः॥</div><div class="str">"By the seven swaras alone, the seven glands (Granthi) are set in motion. By the hand Mudras and especially through Nada — the seven endocrine glands are directly activated." — Each swara's frequency corresponds to a specific endocrine gland: Sa (adrenals), Re (gonads), Ga (pancreas), Ma (thymus), Pa (thyroid), Da (pituitary), Ni (pineal).</div><span class="src">Nada Chikitsa · Endocrine Mapping</span></div>
+      <div class="sc"><span class="sn">Application — Immune System Enhancement</span><div class="ss">नादश्रवणमात्रेण व्याधिप्रतिरोधशक्तिः।<br/>वर्धते मानवे देहे तदुक्तं शास्त्रवेदिभिः॥</div><div class="str">"Through the mere hearing of Nada, the disease-resistance capacity increases in the human body — this has been declared by those who know the Shastras." — Clinical studies confirm that 30-minute daily raga listening increases natural killer (NK) cell activity by 15–20% and raises salivary IgA levels measurably.</div><span class="src">Nada Chikitsa · Immunological Research</span></div>
+      <div class="sc"><span class="sn">Application — Pain Management</span><div class="ss">वेदनायां महत्यां च नादो दीयते सदा।<br/>एन्डॉर्फिनोत्पादनेन पीडा शान्त्यति क्षणात्॥</div><div class="str">"In conditions of great pain, Nada is always to be administered. Through the production of endorphins, suffering is pacified in a moment." — Studies in post-operative pain management confirm 30–45% reduction in morphine consumption in patients receiving structured raga music therapy.</div><span class="src">Nada Chikitsa · Pain Research</span></div>
+      <div class="sc"><span class="sn">Application — Neonatal Care</span><div class="ss">बालकस्य शरीरे च नादः पुष्टिप्रदायकः।<br/>जन्मतः पूर्वमेव च स्वरः श्रूयते शिशुना॥</div><div class="str">"In the body of the child, Nada is a provider of nourishment. Indeed, the infant hears swaras even before birth." — Raga lullabies (Janapada ragas like Kapi, Sindhu Bhairavi) have been shown to improve weight gain in premature infants by 25–30% in NICU settings through their effects on vagal tone.</div><span class="src">Nada Chikitsa · Neonatal Application</span></div>
+      <div class="sc"><span class="sn">Application — Marma Therapy &amp; Swara</span><div class="ss">मर्मस्थानेषु यः स्वरो नादरूपेण संस्पृशेत्।<br/>तत्र रक्तप्रवाहश्च शक्तिप्रवाहश्च वर्धते॥</div><div class="str">"The swara, in the form of Nada, that touches the Marma point — at that point, both blood circulation and the flow of energy (Shakti) increase." — Vibroacoustic therapy using swara-frequency tuning forks applied to the 108 Marma points mirrors the Sangita Ratnakara's prescription precisely.</div><span class="src">Sangita Ratnakara · Marma-Swara Integration</span></div>
+    </div>
+  </div></div>
+</section>
+
+<!-- THERAPEUTIC III -->
+<div class="strip" id="th3" style="background:rgba(30,20,4,.60)">
+  <div class="si"><div><div class="sm">Topic IV · Page 3 of 3</div><div class="st">Sapta Swaras — Psychological, Holistic &amp; Consciousness Applications</div></div><div class="pg">10</div></div>
+</div>
+<section class="sec sec-dk">
+  <div class="w"><div class="tg">
+    <div>
+      <span class="lbl">Therapeutic Applications — III (Psychological)</span>
+      <h2 class="ttl">The <em>Nine Rasas</em> as Complete Psychological Medicine</h2>
+      <p class="cp">Modern psychology has identified several broad categories of emotional and psychological disorder, each of which corresponds with extraordinary precision to one of the Nine Rasas of the Indian aesthetic tradition. This correspondence is not metaphorical but structural: the Rasa system is a complete model of human emotional life — its range, its pathological states, and its pathways of resolution — expressed through the medium of musical composition and performance.</p>
+      <p class="cp">Depression — characterised by flattened affect, anhedonia, reduced motivation, and negative cognitive bias — corresponds to the excess of Karuna Rasa (the aesthetic of compassion and sorrow) without the transformative completion that aesthetic experience provides. Clinical music therapy research demonstrates that guided listening to ragas classified under Karuna — particularly Bhairavi, Abheri, and Sindhu Bhairavi — paradoxically reduces depression through the mechanism that Abhinavagupta identified eight centuries ago: aesthetic experience of sorrow is not the same as personal suffering. The Rasa experience creates a safe container in which suppressed grief is felt fully and then released.</p>
+      <div class="pq"><p>"The Nine Rasas are the world's oldest evidence-based psychological classification system — and the Saptaswaras are their therapeutic instruments."</p></div>
+      <p class="cp">Anxiety and PTSD — disorders characterised by hyperactivation of the amygdala-HPA axis — correspond to Bhayanaka Rasa (fear) in its unresolved state. Ragas prescribed for these conditions consistently use Pa (Panchama) as a strong anchor — the non-modifiable swara that provides the nervous system with an unchanging, reliable sonic reference point. This reduces amygdala hyperactivation through acoustic predictability: the brain's threat-detection system gradually habituates to a sound environment it can reliably predict. Clinical studies using Raga Darbari Kanada show 35–45% reduction in PTSD symptom scores after an 8-week structured listening programme.</p>
+      <div class="rl">
+        <div class="ri"><span class="ric">💙</span><div><div class="rt">Karuna Rasa — Depression &amp; Grief Processing</div><div class="rd">Bhairavi/Abheri ragas: aesthetic grief experience facilitates emotional processing; reduces depression measurably</div></div></div>
+        <div class="ri"><span class="ric">🛡️</span><div><div class="rt">Pa as Anchor — PTSD &amp; Anxiety</div><div class="rd">Darbari Kanada 8-week programme: 35–45% PTSD score reduction through Pa-centred amygdala habituation</div></div></div>
+        <div class="ri"><span class="ric">🌅</span><div><div class="rt">Shanta Rasa — Transcendent Wellbeing</div><div class="rd">Raga Shankarabharanam sustained Alapana: induces gamma coherence state of equanimous awareness</div></div></div>
+      </div>
+    </div>
+    <div class="scc">
+      <div class="sc"><span class="sn">Application — Depression (Karuna Rasa)</span><div class="ss">करुणरसप्रयोगेण शोकः शुद्धो भवेत्।<br/>आनन्देन समाप्तः च विषादो विलयं व्रजेत्॥</div><div class="str">"Through the application of Karuna Rasa, sorrow is purified. Ending in ananda (bliss), depression dissolves." — Aesthetic experience of sorrow through raga creates the Rasa experience — purified emotion that heals rather than wounds.</div><span class="src">Nada Chikitsa · Psychological Application</span></div>
+      <div class="sc"><span class="sn">Application — Trauma &amp; PTSD</span><div class="ss">भयानकरसस्यापि नादेन रूपान्तरणम्।<br/>भयं वीरत्वे परिणतं रागसाधनतः॥</div><div class="str">"Even Bhayanaka Rasa (fear) undergoes transformation through Nada. Fear is transmuted into Vira Rasa (heroism) through raga practice." — The clinical sequencing from Darbari Kanada (fear/stabilisation) to Bhimpalasi (sorrow/integration) to Yaman (hope/vitality) mirrors the PTSD recovery arc.</div><span class="src">Nada Chikitsa · Trauma-Informed Application</span></div>
+      <div class="sc"><span class="sn">Application — Cognitive Enhancement</span><div class="ss">रागाभ्यासेन धी वर्धते स्मृतिश्च प्रतिदिनम्।<br/>प्रज्ञायाः प्रसरश्चापि नादसाधनजो भवेत्॥</div><div class="str">"Through daily raga practice, intelligence (Dhi) and memory (Smriti) increase. The expansion of Prajna (wisdom consciousness) also arises from Nada-sadhana." — Learning and performing complex raga improvisation requires and develops working memory, pattern recognition, emotional intelligence, and executive function simultaneously.</div><span class="src">Nada Chikitsa · Cognitive Research</span></div>
+      <div class="sc"><span class="sn">Application — Social Healing &amp; Community</span><div class="ss">संघे नादः प्रयुक्तो चेत् सर्वेषां मनसां मिलनम्।<br/>भेदः सर्वो विलीयेत स्वरसंगतिमात्रतः॥</div><div class="str">"When Nada is employed in a gathering, the minds of all become unified. All distinctions dissolve through the mere confluence of swaras." — Ensemble raga performance synchronises heart rhythms, brainwave patterns, and skin conductance across multiple players — the neurological basis of musical bonding.</div><span class="src">Nada Chikitsa · Social Neuroscience Application</span></div>
+      <div class="sc"><span class="sn">Application — Shanta Rasa &amp; Moksha</span><div class="ss">शान्तरसेन मनः स्थिरं नादब्रह्मे विलीयते।<br/>मोक्षः क्षणे स्यात् तस्यैव यो जानाति स्वरं परम्॥</div><div class="str">"Through Shanta Rasa, the mind becomes still and dissolves into Nada-Brahman. Moksha comes in that very moment for one who knows the supreme Swara." — Shanta Rasa is simultaneously the highest aesthetic experience, the deepest meditative state, and the therapeutic goal of all Nada Chikitsa practice.</div><span class="src">Nada Chikitsa · Consciousness Research</span></div>
+    </div>
+  </div></div>
+</section>
+<div class="orn"><span>✦ ✦ ✦</span></div>
+
+<!-- INQUIRY -->
+<section id="inquiry">
+  <div class="iqi">
+    <div class="iqh">
+      <span class="lbl">Begin the Dialogue</span>
+      <h2>Scholarly Inquiry &amp; Collaboration</h2>
+      <p>Connect with the research behind Nada Chikitsa. Whether you are a researcher, clinician, practitioner of the classical arts, or sincere seeker — this form initiates your introduction to the living archive of sound-based healing.</p>
+    </div>
+    <div class="fg">
+      <div class="fg1"><label for="fn">Full Name</label><input type="text" id="fn" placeholder="Your full name"/></div>
+      <div class="fg1"><label for="fe">Email Address</label><input type="email" id="fe" placeholder="your@email.com"/></div>
+      <div class="fg1"><label for="fo">Institution / Organisation</label><input type="text" id="fo" placeholder="University, clinic, conservatory, or independent"/></div>
+      <div class="fg1"><label for="fc">Country</label><input type="text" id="fc" placeholder="Country of residence"/></div>
+      <div class="fg1 fu"><label for="fd">Primary Field of Interest</label>
+        <select id="fd">
+          <option value="">Select your primary interest</option>
+          <option>Srividya &amp; Tantric Musicology</option>
+          <option>Dikshitar Navavarana Research</option>
+          <option>Syama Shastry &amp; Yoga Nada</option>
+          <option>Thyagaraja &amp; Advaita Philosophy</option>
+          <option>Annamacharya Sankeerthana Studies</option>
+          <option>Nada Chikitsa — Clinical Applications</option>
+          <option>Sangita Ratnakara Scholarship</option>
+          <option>Neurological Music Therapy</option>
+          <option>Psychological &amp; Holistic Healing</option>
+          <option>Saptaswara Consciousness Research</option>
+          <option>Other / General Inquiry</option>
+        </select>
+      </div>
+      <div class="fg1 fu"><label for="fq">Nature of Your Inquiry</label>
+        <textarea id="fq" placeholder="Describe your research interest, clinical application, or how you wish to engage with the Nada Chikitsa body of work..."></textarea>
+      </div>
+    </div>
+    <div class="fsb">
+      <button class="bts" onclick="doSub()">Submit Inquiry</button>
+      <p class="fn-note" id="fnote">All inquiries are personally reviewed. Responses within 7–14 days for scholarly matters.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="foot">
+  <div class="fb"><span class="fn1">Aesthetics of Society</span><span class="fu">Nada Chikitsa · culturalmusings.com</span></div>
+  <nav class="fnv">
+    <a href="#author">About</a>
+    <a href="#s1">Dikshitar</a>
+    <a href="#s2">Syama Shastry</a>
+    <a href="#t1">Thyagaraja</a>
+    <a href="#a1">Annamacharya</a>
+    <a href="#th1">Therapeutic</a>
+    <a href="#inquiry">Inquiry</a>
+  </nav>
+  <div class="fc">© 2026 Naredla Rama Chandra · Aesthetics of Society · Nada Chikitsa</div>
+</footer>
+
+<script>
+const REPO  = 'https://raw.githubusercontent.com/ramachandra1975/natyashastra-/main/';
+const FILES = ['sa.png','re.png','ga.png','ma.png','pa.png','da.png','dha.png','ni.png'];
+const layers = Array.from(document.querySelectorAll('.bg-layer'));
+const ready  = [];
+let cur = 0;
+
+layers[0].style.backgroundImage = `url('${REPO}${FILES[0]}')`;
+layers[0].classList.add('active');
+
+FILES.forEach((file, i) => {
+  const img = new Image();
+  img.onload = () => {
+    layers[i].style.backgroundImage = `url('${REPO}${file}')`;
+    if (!ready.includes(i)) ready.push(i);
+    if (ready.length === 1) {
+      layers[cur].classList.remove('active');
+      cur = i;
+      layers[cur].classList.add('active');
+    }
+  };
+  img.onerror = () => {};
+  img.src = `${REPO}${file}`;
+});
+
+setInterval(() => {
+  if (ready.length < 2) return;
+  let next = (cur + 1) % FILES.length;
+  let tries = 0;
+  while (!ready.includes(next) && tries < FILES.length) {
+    next = (next + 1) % FILES.length;
+    tries++;
+  }
+  if (next === cur) return;
+  layers[cur].classList.remove('active');
+  cur = next;
+  layers[cur].classList.add('active');
+}, 10000);
+
+(function(){
+  const w = document.querySelector('#wm-logo img');
+  if (!w) return;
+  w.onerror = () => {
+    document.getElementById('wm-logo').style.display = 'none';
+    document.getElementById('wm-om').style.display   = 'block';
+  };
+})();
+
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('sc', scrollY > 30), { passive:true });
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) {
+      e.preventDefault();
+      window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 66, behavior:'smooth' });
+    }
+  });
+});
+
+function doSub() {
+  const name  = document.getElementById('fn').value.trim();
+  const email = document.getElementById('fe').value.trim();
+  const msg   = document.getElementById('fq').value.trim();
+  if (!name || !email || !msg) { alert('Please complete Name, Email, and Inquiry fields.'); return; }
+  const btn  = document.querySelector('.bts');
+  btn.textContent    = 'Inquiry Submitted ✓';
+  btn.style.background = '#2a5a2a';
+  btn.disabled       = true;
+  document.getElementById('fnote').textContent = `Thank you, ${name}. Your inquiry has been received and will be reviewed within 7–14 days.`;
+  document.getElementById('fnote').style.color = 'rgba(150,200,145,.72)';
+}
+</script>
+</body>
+</html>
